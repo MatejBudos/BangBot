@@ -1,3 +1,13 @@
+---
+title: BangBot
+emoji: 🤠
+colorFrom: yellow
+colorTo: red
+sdk: docker
+app_file: app.py
+pinned: false
+---
+
 # BangRag
 
 Hybrid RAG system for rules of the Slovak card game **Bang!**. Ask questions in Slovak, get answers grounded in the official rulebook.
