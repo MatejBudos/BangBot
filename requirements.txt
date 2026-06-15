@@ -1,0 +1,7 @@
+streamlit
+sentence-transformers
+lancedb
+simplemma
+google-genai
+numpy
+pytest
