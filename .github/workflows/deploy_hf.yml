@@ -31,5 +31,6 @@ jobs:
           git config user.name "GitHub Actions"
           # Orphan commit — pushes only current files, no history with old binary blobs
           git checkout --orphan hf-deploy
+          git add -A
           git commit -m "deploy"
           git push https://Mugenko:${HF_TOKEN}@huggingface.co/spaces/Mugenko/BangBot hf-deploy:main --force
