@@ -2,8 +2,13 @@
 .streamlit/secrets.toml
 .env
 
-# Runtime logs
+# Runtime state & logs
 logs/
+state.json
+
+# Tantivy lock files (inside artifacts/.lance, generated at runtime)
+**/.tantivy-meta.lock
+**/.tantivy-writer.lock
 
 # Python
 __pycache__/
