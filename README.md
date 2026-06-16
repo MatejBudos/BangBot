@@ -3,7 +3,8 @@ title: BangBot
 emoji: 🤠
 colorFrom: yellow
 colorTo: red
-sdk: docker
+sdk: streamlit
+sdk_version: "1.48.1"
 app_file: app.py
 pinned: false
 ---
