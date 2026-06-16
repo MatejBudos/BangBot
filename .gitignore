@@ -6,9 +6,8 @@
 logs/
 state.json
 
-# Tantivy lock files (inside artifacts/.lance, generated at runtime)
-**/.tantivy-meta.lock
-**/.tantivy-writer.lock
+# LanceDB index — rebuilt automatically on first startup
+artifacts/.lance/
 
 # Python
 __pycache__/

@@ -11,8 +11,10 @@ from pathlib import Path
 
 import streamlit as st
 
+from src.embedding.embedder import Embedder
 from src.generation.openai_client import LLMUnavailable, OpenAIClient
-from src.retrieval.lancedb_store import HybridRetriever
+from src.ingestion.latex_parser import parse_corpus, write_chunks_jsonl
+from src.retrieval.lancedb_store import HybridRetriever, build_table
 
 _DB_PATH = "artifacts/.lance"
 _STATE_FILE = "state.json"
@@ -36,8 +38,28 @@ _CATEGORY_COLORS: dict[str, str] = {
 _ip_requests: dict[str, list[float]] = defaultdict(list)
 
 
-@st.cache_resource
+def _build_index() -> None:
+    """Build LanceDB index from corpus — runs only on first startup when index is absent."""
+    data_dir = Path("data/corpus")
+    out_dir = Path("artifacts")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    chunks = parse_corpus(data_dir)
+    write_chunks_jsonl(chunks, out_dir / "chunks.jsonl")
+
+    embedder = Embedder()
+    texts = [
+        f"{c.get('name_sk') or c.get('section_title') or ''}: {c['text']}".lstrip(": ")
+        for c in chunks
+    ]
+    embeddings = embedder.embed_passages(texts)
+    build_table(chunks, embeddings, str(out_dir / ".lance"))
+
+
+@st.cache_resource(show_spinner="Inicializujem znalostný základ (prvý štart ~3–5 min)…")
 def _get_retriever() -> HybridRetriever:
+    if not Path(_DB_PATH).exists():
+        _build_index()
     return HybridRetriever(_DB_PATH)
 
 
