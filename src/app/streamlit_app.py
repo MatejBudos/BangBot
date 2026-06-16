@@ -9,12 +9,17 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 import streamlit as st
 
-from src.embedding.embedder import Embedder
+from src.generation.agent import BangAgent
 from src.generation.openai_client import LLMUnavailable, OpenAIClient
-from src.ingestion.latex_parser import parse_corpus, write_chunks_jsonl
-from src.retrieval.lancedb_store import HybridRetriever, build_table
+from src.retrieval.lancedb_store import HybridRetriever
 
 _DB_PATH = "artifacts/.lance"
 _STATE_FILE = "state.json"
@@ -40,6 +45,10 @@ _ip_requests: dict[str, list[float]] = defaultdict(list)
 
 def _build_index() -> None:
     """Build LanceDB index from corpus — runs only on first startup when index is absent."""
+    from src.embedding.embedder import Embedder
+    from src.ingestion.latex_parser import parse_corpus, write_chunks_jsonl
+    from src.retrieval.lancedb_store import build_table
+
     data_dir = Path("data/corpus")
     out_dir = Path("artifacts")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -149,6 +158,7 @@ def _log_query(
     llm_used: bool,
     latency_ms: float,
     tokens_used: int | None,
+    agent_steps: int = 0,
 ) -> None:
     Path(_LOG_FILE).parent.mkdir(parents=True, exist_ok=True)
     entry = {
@@ -160,6 +170,7 @@ def _log_query(
         "llm_used": llm_used,
         "latency_ms": round(latency_ms, 1),
         "tokens_used": tokens_used,
+        "agent_steps": agent_steps,
     }
     with open(_LOG_FILE, "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -174,8 +185,8 @@ def _badge(category: str) -> str:
 
 
 def _render_chunk(chunk: dict, idx: int, show_scores: bool) -> None:
-    name = chunk.get("name_sk") or chunk.get("section_title") or "Zdroj"
-    cat = chunk.get("category") or chunk.get("source") or chunk.get("type", "")
+    name = chunk.get("sk_name") or chunk.get("caption_name") or "Zdroj"
+    cat = chunk.get("category")
     st.markdown(f"**[Z{idx}] {name}** {_badge(cat)}")
     if show_scores:
         dense = chunk.get("_dense_score") or 0.0
@@ -252,27 +263,39 @@ def main() -> None:
     ip_hash = _hash_ip(ip)
     st.session_state["query_count"] += 1
 
-    # Retrieval
     retriever = _get_retriever()
+    client = _get_client()
     t0 = time.monotonic()
-    with st.spinner("Hľadám v pravidlách..."):
-        chunks = retriever.search(query.strip(), k=5)
 
-    # LLM or fallback
+    chunks: list[dict] = []
     llm_used = False
     tokens_used: int | None = None
+    agent_steps = 0
     llm_disabled = global_state.get("llm_disabled", False)
-    client = _get_client()
 
     if llm_disabled or client is None:
+        with st.spinner("Hľadám v pravidlách..."):
+            chunks = retriever.search(query.strip(), k=5)
         st.warning("Dnešný limit LLM bol vyčerpaný. Tu sú nájdené pravidlá:")
     else:
+        agent = BangAgent(retriever)
         try:
+            with st.status("Agent prehľadáva pravidlá...", expanded=True) as status:
+                chunks = agent.collect_context(query.strip())
+                agent_steps = len(agent.tool_calls_log)
+                for step in agent.tool_calls_log:
+                    status.write(
+                        f"Hľadám: \"{step['query']}\" "
+                        f"[{step['variant']}] → {step['n_new']} nových výsledkov"
+                    )
+                status.update(label="Hotovo.", state="complete")
             st.write_stream(client.stream_answer(query.strip(), chunks))
             llm_used = True
             tokens_used = client.last_token_count
             global_state = _increment_llm(global_state)
         except LLMUnavailable:
+            if not chunks:
+                chunks = retriever.search(query.strip(), k=5)
             st.warning("Dnešný limit LLM bol vyčerpaný. Tu sú nájdené pravidlá:")
 
     # Sources expander
@@ -283,4 +306,4 @@ def main() -> None:
                 st.divider()
 
     total_ms = (time.monotonic() - t0) * 1000
-    _log_query(ip_hash, query.strip(), chunks, llm_used, total_ms, tokens_used)
+    _log_query(ip_hash, query.strip(), chunks, llm_used, total_ms, tokens_used, agent_steps)

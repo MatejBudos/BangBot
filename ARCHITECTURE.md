@@ -27,10 +27,10 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
 | `postavy.tex` | postavy | per minipage; skip `\begin{comment}` templejt |
 | `fistful.tex`, `highnoon.tex`, `wildwest.tex` | expanzie | per minipage + `\section*{Pravidlá}` → rule_section |
 | `general_rules.tex` | všeobecné pravidlá | per `\section*` → 1 rule_section chunk |
-| `vysvetlivky.tex` | glosár (~1.5 KB) | 1 chunk celý |
+| `vysvetlivky.tex` | glosár (~1.5 KB) | per riadok tabuľky → 1 glossary chunk / pojem (~9 chunkov) |
 | `hnede.tex` – sekcia "Dohoda" | cross-cutting pravidlá | samostatný `rule_section` chunk |
 
-**Očakávaný výsledok:** ~80 card chunkov + ~13 rule_section chunkov + 1 glossary = **~94 chunkov**.
+**Očakávaný výsledok:** ~80 card chunkov + ~13 rule_section chunkov + ~9 glossary = **~102 chunkov**.
 
 ### Chunk schéma
 
@@ -63,7 +63,7 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
 }
 ```
 
-**Glossary:** jediný chunk `type: glossary`.
+**Glossary:** jeden chunk na pojem (`type: glossary`, `section_title` = názov pojmu, `text` = "Názov: definícia").
 
 Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samostatný chunk, hybrid retrieval si ju nájde).
 
@@ -96,7 +96,7 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 - Žiadny cross-encoder reranker vo v1
 
 ### Storage
-- **LanceDB** `artifacts/.lance/` (commitnutý do gitu)
+- **LanceDB** `artifacts/.lance/` (v `.gitignore` — rebuilduje sa automaticky pri prvom štarte HF Space)
 - Schéma stĺpcov: `id`, `type`, `name_sk`, `sk_name`, `alt_names`, `name_orig`, `category`, `expansion`, `image_path`, `section_title`, `source`, `text`, `text_lemmatized`, `vector`
 
 ---
@@ -105,9 +105,10 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 
 | Aspekt | Rozhodnutie |
 |---|---|
-| Provider | **Google Gemini 2.0 Flash** (free tier 1500 req/deň) |
-| Streaming | Áno (`st.write_stream`) |
-| Fallback | Pri vyčerpaní quoty → zobraz iba retrieved chunky |
+| Provider | **OpenAI gpt-4.1-mini** (`OPENAI_KEY` env var) |
+| Agentic retrieval | `BangAgent` — tool-calling loop (max 10 iterácií), nástroje: `search_rules` + `select_chunks` |
+| Streaming | Áno (`st.write_stream`) pre finálnu odpoveď; tool-calling loop je non-streaming |
+| Fallback | Pri nedostupnosti API → zobraz iba retrieved chunky (hybrid k=5) |
 | Jazyk odpovede | Vždy slovenčina |
 
 ### Prompt format
@@ -158,7 +159,7 @@ System prompt:
 | Anti-injection | — | system prompt instruction |
 
 **Secrets:**
-- HF Space "Repository secrets": `GEMINI_API_KEY`, `APP_PASSWORD`
+- HF Space "Repository secrets": `OPENAI_KEY`, `APP_PASSWORD`
 - Lokálne: `.streamlit/secrets.toml` (v `.gitignore`)
 
 ---
@@ -192,7 +193,8 @@ BangRag/
 │   │   ├── lancedb_store.py
 │   │   └── slovak_text.py          # lemma + diacritics utils
 │   ├── generation/
-│   │   ├── gemini_client.py
+│   │   ├── agent.py            # BangAgent — tool-calling loop
+│   │   ├── openai_client.py    # OpenAI streaming client
 │   │   └── prompts.py
 │   ├── eval/
 │   │   ├── run_eval.py
@@ -203,6 +205,9 @@ BangRag/
 │   └── qa.jsonl
 ├── artifacts/
 │   └── .lance/                     # commitnutý LanceDB index
+├── config/
+│   ├── agent.toml                  # konfigurovateľné konštanty agenta
+│   └── agent_prompt.md             # system prompt agenta (verzionovaný)
 ├── scripts/
 │   └── build_index.py              # CLI rebuild
 ├── tests/
@@ -282,7 +287,7 @@ BangRag/
 | Slovak NLP | `simplemma` (lemma) + custom stopword list |
 | Embeddings | `sentence-transformers` + `intfloat/multilingual-e5-base` |
 | Vector + FTS | `lancedb` (native hybrid + RRF) |
-| LLM | `google-genai` SDK, `gemini-2.0-flash` |
+| LLM | `openai` SDK, `gpt-4.1-mini` |
 | UI | `streamlit` |
 | Tests | `pytest` |
 | Deploy | HF Spaces (Streamlit SDK) cez GitHub Action |

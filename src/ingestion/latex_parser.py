@@ -40,6 +40,8 @@ def _clean_latex(text: str) -> str:
     text = re.sub(r"[{}]", "", text)
     # Collapse whitespace
     text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"\\\\", "\n", text)
+    
     return text
 
 
@@ -193,18 +195,29 @@ def _parse_rule_sections(source_key: str, content: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def _parse_glossary(content: str) -> list[dict]:
-    """Extract a single glossary chunk from vysvetlivky.tex."""
+    """Extract one chunk per term from vysvetlivky.tex tabular rows."""
     content = _strip_comments(content)
-    # Strip the chapter heading
     content = re.sub(r"\\chapter\*?\{[^}]*\}", "", content)
-    text = _clean_latex(content)
-    if not text:
-        return []
-    return [{
-        "id": "glossary_vysvetlivky",
-        "type": "glossary",
-        "text": text,
-    }]
+    chunks: list[dict] = []
+    for line in content.splitlines():
+        line = line.strip()
+        if "&" not in line:
+            continue
+        parts = line.split("&", 1)
+        if len(parts) != 2:
+            continue
+        term = _clean_latex(parts[0].strip())
+        definition = _clean_latex(parts[1].strip())
+        if not term or not definition:
+            continue
+        slug = _slugify(term)
+        chunks.append({
+            "id": f"glossary_{slug}",
+            "type": "glossary",
+            "section_title": term,
+            "text": f"{term}: {definition}",
+        })
+    return chunks
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,4 @@
+model_id        = "gpt-4.1-mini"
+max_iterations  = 10
+max_k_per_call  = 5
+max_total_chunks = 10

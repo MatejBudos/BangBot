@@ -120,13 +120,21 @@ def test_parse_corpus_roughly_100_chunks():
     assert 60 <= len(chunks) <= 200, f"Unexpected chunk count: {len(chunks)}"
 
 
-def test_parse_glossary_single_chunk():
+def test_parse_glossary_per_term():
     content = (CORPUS_DIR / "vysvetlivky.tex").read_text(encoding="utf-8")
     chunks = _parse_glossary(content)
-    assert len(chunks) == 1
-    assert chunks[0]["id"] == "glossary_vysvetlivky"
-    assert chunks[0]["type"] == "glossary"
-    assert len(chunks[0]["text"]) > 50
+    ids = {c["id"] for c in chunks}
+    assert len(chunks) >= 5
+    assert all(c["type"] == "glossary" for c in chunks)
+    assert all("section_title" in c and "text" in c for c in chunks)
+    # "Ťahať kartu" a "Potiahnuť kartu" musia byť samostatné entries
+    assert "glossary_tahatkartu" in ids
+    assert "glossary_potiahnutkartu" in ids
+    # Každý text musí obsahovať aj názov pojmu (prefixovaný)
+    by_id = {c["id"]: c for c in chunks}
+    tc = by_id["glossary_tahatkartu"]
+    assert "Ťahať kartu" in tc["text"]
+    assert "Potiahnuť kartu" not in tc["text"]
 
 
 # ---------------------------------------------------------------------------
