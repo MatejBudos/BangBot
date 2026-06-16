@@ -6,13 +6,13 @@ Executable tasks vygenerované z `ARCHITECTURE.md`. Každý task má acceptance 
 
 | # | Status | Fáza | Subject | Blocked by |
 |---|---|---|---|---|
-| 1 | pending | 1 | Implementovať LaTeX parser pre karty a sekcie | — |
-| 2 | pending | 1 | Napísať unit testy pre LaTeX parser | #1 |
-| 3 | pending | 2 | Implementovať Slovak text utilities | — |
-| 4 | pending | 2 | Implementovať embedder wrapper | — |
-| 5 | pending | 2 | Implementovať LanceDB store s hybrid search | #3, #4 |
-| 6 | pending | 2 | Vytvoriť build_index.py CLI | #1, #3, #4, #5 |
-| 7 | pending | 2 | Vytvoriť CLI query script | #6 |
+| 1 | completed | 1 | Implementovať LaTeX parser pre karty a sekcie | — |
+| 2 | completed | 1 | Napísať unit testy pre LaTeX parser | #1 |
+| 3 | completed | 2 | Implementovať Slovak text utilities | — |
+| 4 | completed | 2 | Implementovať embedder wrapper | — |
+| 5 | completed | 2 | Implementovať LanceDB store s hybrid search | #3, #4 |
+| 6 | completed | 2 | Vytvoriť build_index.py CLI | #1, #3, #4, #5 |
+| 7 | completed | 2 | Vytvoriť CLI query script | #6 |
 | 8 | pending | 3 | Vygenerovať eval set (50 párov) | #6 |
 | 9 | pending | 3 | Eval metriky + ablation runner | #8, #5 |
 | 10 | pending | 4 | Gemini client + prompts | — |
@@ -36,12 +36,12 @@ Vytvoriť `src/ingestion/latex_parser.py` ktorý prejde 9 `.tex` súborov v `dat
 
 **Acceptance criteria:**
 - [ ] Parser extrahuje **card chunks** z `\begin{minipage}...\caption[Name]{text}...\includegraphics{path}` blokov vo všetkých card súboroch (hnede/modre/zelene/postavy/fistful/highnoon/wildwest)
-- [ ] Parser extrahuje **rule_section chunks** z `\section*{...}` blokov v `general_rules.tex` a "Dohoda" sekcie v `hnede.tex`
+- [ ] Parser extrahuje **rule_section chunks** z `\section*{...}` blokov v `general_rules.tex`, "Dohoda" sekcie v `hnede.tex` a `\section*{Pravidlá}` blokov v `fistful.tex`, `highnoon.tex`, `wildwest.tex`
 - [ ] Parser extrahuje **glossary chunk** z `vysvetlivky.tex` (1 chunk)
 - [ ] Parser **preskočí** `\begin{comment}...\end{comment}` bloky (postavy.tex obsahuje template)
 - [ ] Každý chunk má pole: `id`, `type` (card|rule_section|glossary), `text`
-- [ ] Card chunks majú navyše: `name_sk` (z caption label), `name_orig` (z filename napr. "01_mancato.png" → "mancato"), `category`, `expansion`, `image_path`
-- [ ] Rule_section chunks majú: `section_title`, `source` (general_rules|hnede_dohoda)
+- [ ] Card chunks majú navyše: `name_sk` (z caption label), `sk_name` (z `\skname{}` ak prítomné, inak = `name_sk`), `alt_names` (list z `\altnames{}`, inak `[]`), `name_orig` (z filename napr. "01_mancato.png" → "mancato"), `category`, `expansion`, `image_path`
+- [ ] Rule_section chunks majú: `section_title`, `source` (general_rules|hnede_dohoda|fistful|highnoon|wildwest)
 - [ ] Výstup: `artifacts/chunks.jsonl` s ~100 riadkami
 - [ ] Žiadny chunk nemá prázdny `text` ani `id`
 - [ ] `id` je deterministicky generované a unique (formát: `card_<category>_<name_orig>` alebo `rule_<source>_<slug>`)
@@ -54,11 +54,14 @@ Vytvoriť `tests/test_latex_parser.py` s minimum 8 testami.
 
 **Acceptance criteria:**
 - [ ] Test: extrakcia jednej card z minipage bloku vráti správny `name_sk` z `\caption[X]`
+- [ ] Test: `\skname{X}` prepisuje `sk_name`; bez `\skname{}` je `sk_name == name_sk`
+- [ ] Test: `\altnames{A, B}` parsuje na `["A", "B"]`; bez `\altnames{}` je `alt_names == []`
 - [ ] Test: extrakcia `name_orig` z `\includegraphics{Hnede/01_mancato.png}` vráti `"mancato"`
 - [ ] Test: extrakcia `category` z source filename funguje pre všetkých 7 card súborov
 - [ ] Test: `\begin{comment}...\end{comment}` bloky sú preskočené (postavy.tex template)
 - [ ] Test: rule_section parser rozpozná `\section*{Priebeh ťahu}` v general_rules.tex
 - [ ] Test: "Dohoda" sekcia z hnede.tex je extrahovaná ako samostatný rule_section
+- [ ] Test: `\section*{Pravidlá}` sekcia z fistful.tex/highnoon.tex/wildwest.tex je extrahovaná s `source` zodpovedajúcim danému súboru
 - [ ] Test: special characters v slovenčine (`č, š, ť, ľ, á, ý`) sú zachované v `text`
 - [ ] Test: nested braces v captions (napr. `\textbf{...}`) sú správne handled
 - [ ] Všetky testy prechádzajú: `pytest tests/test_latex_parser.py -v`
@@ -101,7 +104,7 @@ Vytvoriť `src/embedding/embedder.py`.
 Vytvoriť `src/retrieval/lancedb_store.py`.
 
 **Acceptance criteria:**
-- [ ] Funkcia `build_table(chunks, embeddings, db_path)` — vytvorí LanceDB tabuľku `bang_chunks` s stĺpcami: `id, type, name_sk, name_orig, category, expansion, image_path, section_title, source, text, text_lemmatized, vector`
+- [ ] Funkcia `build_table(chunks, embeddings, db_path)` — vytvorí LanceDB tabuľku `bang_chunks` s stĺpcami: `id, type, name_sk, sk_name, alt_names, name_orig, category, expansion, image_path, section_title, source, text, text_lemmatized, vector`
 - [ ] FTS index na stĺpci `text_lemmatized` (Tantivy)
 - [ ] Trieda `HybridRetriever` s konštruktorom `(db_path)`
 - [ ] Metóda `search(query: str, k: int = 5) -> list[dict]`:

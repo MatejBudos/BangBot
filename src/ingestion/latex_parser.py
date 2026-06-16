@@ -85,6 +85,9 @@ _MINIPAGE_RE = re.compile(
     re.DOTALL,
 )
 
+_SKNAME_RE = re.compile(r"\\skname\{([^}]*)\}")
+_ALTNAMES_RE = re.compile(r"\\altnames\{([^}]*)\}")
+
 
 def _parse_cards(source: str, content: str) -> list[dict]:
     """Extract card chunks from a card .tex file content."""
@@ -95,18 +98,29 @@ def _parse_cards(source: str, content: str) -> list[dict]:
 
     for m in _MINIPAGE_RE.finditer(content):
         image_path = m.group(1).strip()
-        name_sk_raw = m.group(2).strip()
+        caption_name = m.group(2).strip()
         text_raw = m.group(3).strip()
 
-        if not image_path or not name_sk_raw:
+        if not image_path or not caption_name:
             continue
 
         name_orig = _name_orig_from_path(image_path)
-        name_sk = _clean_latex(name_sk_raw)
+        caption_name = _clean_latex(caption_name)
         text = _clean_latex(text_raw)
 
         if not text:
             continue
+
+        minipage_text = m.group(0)
+
+        sk_match = _SKNAME_RE.search(minipage_text)
+        sk_name = _clean_latex(sk_match.group(1).strip()) if sk_match else caption_name
+
+        alt_match = _ALTNAMES_RE.search(minipage_text)
+        if alt_match:
+            alt_names = [n.strip() for n in alt_match.group(1).split(",") if n.strip()]
+        else:
+            alt_names = []
 
         base_id = f"card_{category}_{_slugify(name_orig)}"
         chunk_id = base_id
@@ -118,7 +132,9 @@ def _parse_cards(source: str, content: str) -> list[dict]:
         chunks.append({
             "id": chunk_id,
             "type": "card",
-            "name_sk": name_sk,
+            "caption_name": caption_name,
+            "sk_name": sk_name,
+            "alt_names": alt_names,
             "name_orig": name_orig,
             "category": category,
             "expansion": expansion,
@@ -134,7 +150,7 @@ def _parse_cards(source: str, content: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 _SECTION_RE = re.compile(
-    r"\\section\*\{([^}]+)\}(.*?)(?=\\section\*\{|\\chapter\{|\\chapter\*\{|$)",
+    r"\\section\*\{([^}]+)\}(.*?)(?=\\section\*\{|\\chapter\{|\\chapter\*\{|\\begin\{figure\}|$)",
     re.DOTALL,
 )
 
@@ -209,9 +225,11 @@ def parse_corpus(corpus_dir: str | Path) -> list[dict]:
 
         if stem in _CARD_FILES:
             chunks.extend(_parse_cards(stem, content))
-            # Also extract Dohoda section from hnede.tex
+            # Also extract rule sections from files that contain them
             if stem == "hnede":
                 chunks.extend(_parse_rule_sections("hnede_dohoda", content))
+            if stem in {"fistful", "highnoon", "wildwest"}:
+                chunks.extend(_parse_rule_sections(stem, content))
 
         elif stem == "general_rules":
             chunks.extend(_parse_rule_sections("general", content))

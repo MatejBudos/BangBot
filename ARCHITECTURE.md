@@ -25,12 +25,12 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
 |---|---|---|
 | `hnede.tex`, `modre.tex`, `zelene.tex` | hnedé/modré/zelené karty | per `\begin{minipage}` blok → 1 card chunk |
 | `postavy.tex` | postavy | per minipage; skip `\begin{comment}` templejt |
-| `fistful.tex`, `highnoon.tex`, `wildwest.tex` | expanzie | per minipage |
+| `fistful.tex`, `highnoon.tex`, `wildwest.tex` | expanzie | per minipage + `\section*{Pravidlá}` → rule_section |
 | `general_rules.tex` | všeobecné pravidlá | per `\section*` → 1 rule_section chunk |
 | `vysvetlivky.tex` | glosár (~1.5 KB) | 1 chunk celý |
 | `hnede.tex` – sekcia "Dohoda" | cross-cutting pravidlá | samostatný `rule_section` chunk |
 
-**Očakávaný výsledok:** ~80 card chunkov + ~10 rule_section chunkov + 1 glossary = **~100 chunkov**.
+**Očakávaný výsledok:** ~80 card chunkov + ~13 rule_section chunkov + 1 glossary = **~94 chunkov**.
 
 ### Chunk schéma
 
@@ -40,6 +40,8 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
   "id": "card_hnede_bang",
   "type": "card",
   "name_sk": "Bang!",
+  "sk_name": "Bang!",
+  "alt_names": [],
   "name_orig": "bang",
   "category": "hneda",
   "expansion": "base",
@@ -47,6 +49,8 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
   "text": "Vyvolá efekt Bang! na hráča na dostrel..."
 }
 ```
+
+`name_sk` = z `\caption[...]` (fallback, vždy prítomné). `sk_name` = z `\skname{}` ak explicitne uvedené v LaTeX, inak = `name_sk`. `alt_names` = z `\altnames{A, B}` ako list, inak `[]`.
 
 **Rule section:**
 ```json
@@ -71,24 +75,29 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 - Model: **`intfloat/multilingual-e5-base`** (~280 MB), hostovaný v HF Space kontajneri
 - Embed corpus offline pri ingestione → uložené v LanceDB `vector` stĺpci
 - Query embedding pri inference (CPU, ~50 ms)
+- **Embedding text je name-enriched**: pre každý chunk sa embedduje `"{name_sk}: {text}"` (resp. `"{section_title}: {text}"`), nie holý `text`. Bez toho dense model pre query "čo robí Pivo?" nenájde kartu Pivo, lebo jej telo ("Zahraním tejto karty si hráč doplní 1 život...") neobsahuje slovo "pivo".
 
 ### Sparse
 - **LanceDB native hybrid** (Tantivy FTS) cez stĺpec `text_lemmatized`
+- Závislosti: `pip install tantivy pylance` (nie sú zahrnuté v `lancedb` base package)
 - Pre-processing pred uložením:
   ```
-  text → lowercase → strip_diacritics → tokenize → remove_sk_stopwords → simplemma(sk) → text_lemmatized
+  name_sk/section_title + text → lowercase → tokenize → simplemma(sk) → strip_diacritics → remove_sk_stopwords → text_lemmatized
   ```
-- Query pri inference: rovnaký pre-processing → `.text(query_lemmatized)`
+  Lemmatizácia prebieha **pred** stripovaním diakritiky, lebo simplemma potrebuje akcentované formy ("hráčov" → "hráč", nie "hracov" → zlý lemma).
+- **Name boost pre karty**: `name_sk` + `name_orig` sa zopakujú 3× v `text_lemmatized` — bez toho karta "Pivo" prehráva voči kartám "Il Reverend" alebo "Cactus", ktoré len *spomínajú* efekt Pivo vo svojom tele (majú vyšší TF pre "pivo"). Rule sekcie tento boost nedostávajú — tie sa nenachádza cez presný názov, ale cez obsah.
+- Query pri inference: rovnaký pre-processing (bez boostu) → `.text(query_lemmatized)`
 - Originálny `text` ostáva v inom stĺpci pre LLM kontext
 
 ### Fusion
-- LanceDB built-in **RRF reranker** (k=60)
-- Top-20 z každej vetvy → top-5 do LLM
+- LanceDB built-in **RRF reranker** (k=60, `return_score="all"`)
+- **Interný limit `k*3` (min 15)** pred slice na top-k: LanceDB hybrid search berie kandidátov z oboch vetiev pred rerankom; s malým limitom vypadnú rule sekcie (slabé v dense) skôr, ako sa dostanú do RRF. Zvýšený interný limit to opravuje.
+- LanceDB 0.22 API: `search(query_type="hybrid").vector(...).text(...)` — text sa **nesmie** pasovať priamo do `search()`, inak spadne s `ValueError`.
 - Žiadny cross-encoder reranker vo v1
 
 ### Storage
 - **LanceDB** `artifacts/.lance/` (commitnutý do gitu)
-- Schéma stĺpcov: `id`, `type`, `name_sk`, `name_orig`, `category`, `expansion`, `image_path`, `section_title`, `source`, `text`, `text_lemmatized`, `vector`
+- Schéma stĺpcov: `id`, `type`, `name_sk`, `sk_name`, `alt_names`, `name_orig`, `category`, `expansion`, `image_path`, `section_title`, `source`, `text`, `text_lemmatized`, `vector`
 
 ---
 

@@ -1,7 +1,11 @@
 streamlit
 sentence-transformers
 lancedb
+tantivy
+pylance
 simplemma
 google-genai
+openai
+pydantic
 numpy
 pytest

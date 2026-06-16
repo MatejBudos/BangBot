@@ -1,0 +1,361 @@
+{"chunk_id": "card_fistful_agguato", "question": "Aký je efekt karty Léčka a akú vzdialenosť medzi hráčmi mení?", "category": "lookup", "gold_chunk_ids": ["card_fistful_agguato"]}
+
+{"chunk_id": "card_fistful_perunpugnodicarte", "question": "Koľko BANG!-ov je vystrelených na začiatku ťahu v súvislosti s kartou Fistful?", "category": "lookup", "gold_chunk_ids": ["card_fistful_perunpugnodicarte"]}
+{"chunk_id": "card_fistful_ranch", "question": "Aký efekt má karta Ranč na odhadzovanie kariet na konci fázy 1?", "category": "lookup", "gold_chunk_ids": ["card_fistful_ranch"]}
+{"chunk_id": "card_fistful_fratellidisangue", "question": "Čo môže hráč spraviť so svojím životom na začiatku ťahu podľa karty Pokrvní bratia?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_fratellidisangue"]}
+{"chunk_id": "card_fistful_ilgiudice", "question": "Čo nemôžete urobiť s kartami pred sebou alebo pred inými hráčmi, ak je v hre Sudca?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_ilgiudice"]}
+{"chunk_id": "card_fistful_lazo", "question": "Aký je efekt karty Laso, keď je vyložená pred hráčmi?", "category": "lookup", "gold_chunk_ids": ["card_fistful_lazo"]}
+{"chunk_id": "card_fistful_leggedelwest", "question": "Akým spôsobom musia hráči zahrať karty počas fázy 2 s kartou Právo Západu?", "category": "lookup", "gold_chunk_ids": ["card_fistful_leggedelwest"]}
+{"chunk_id": "card_fistful_liquoreforte", "question": "Čo môže hráč získať preskočením fázy 1 s kartou Pálenka?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_liquoreforte"]}
+{"chunk_id": "card_fistful_minieraabbandonata", "question": "Aká je procedúra ťahu hráča počas fázy 1 s kartou Opustená baňa?", "category": "lookup", "gold_chunk_ids": ["card_fistful_minieraabbandonata"]}
+{"chunk_id": "card_fistful_cecchino", "question": "Akým spôsobom môže hráč využiť efekt karty Ostreľovač bez ohľadu na limit Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_cecchino"]}
+{"chunk_id": "card_fistful_peyote", "question": "Čo sa stane, ak hráč uhádne farbu karty v prvom ťahu s kartou Peyote?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_peyote"]}
+{"chunk_id": "card_fistful_deadman", "question": "Čo sa stane s hráčom, ktorý zomrie a karta Mŕtvy muž je v hre?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_deadman"]}
+{"chunk_id": "card_fistful_rimbalzo", "question": "Aký je účinok karty Odrazená Strela pri odhadzovaní karty BANG! proti inej karte?", "category": "lookup", "gold_chunk_ids": ["card_fistful_rimbalzo"]}
+{"chunk_id": "card_fistful_rimbalzo", "question": "Čo sa stane, ak hráč nepoužije efekt Vedľa! pri karte Odrazená Strela?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_rimbalzo"]}
+{"chunk_id": "card_fistful_rouletterussa", "question": "Aký je priebeh hry pri aktivácii karty Ruská ruleta?", "category": "lookup", "gold_chunk_ids": ["card_fistful_rouletterussa"]}
+{"chunk_id": "card_fistful_rouletterussa", "question": "Čo sa stane, keď jeden z hráčov nemá žiadne karty na odhodenie počas Ruské ruleta?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_rouletterussa"]}
+{"chunk_id": "card_fistful_vendetta", "question": "Aký efekt má karta Vendeta na konci ťahu?", "category": "lookup", "gold_chunk_ids": ["card_fistful_vendetta"]}
+{"chunk_id": "card_fistful_vendetta", "question": "Čo robí hráč s kartou srdcovou pri použití karty Vendeta?", "category": "paraphrase", "gold_chunk_ids": ["card_fistful_vendetta"]}
+{"chunk_id": "rule_fistful_pravidla", "question": "Aké sú pravidlá pre vykladanie titulnej karty v rozšírení Fistful?", "category": "lookup", "gold_chunk_ids": ["rule_fistful_pravidla"]}
+{"chunk_id": "rule_general_cielhry", "question": "Aký je cieľ šerifa v hre Bang!?", "category": "lookup", "gold_chunk_ids": ["rule_general_cielhry"]}
+{"chunk_id": "rule_general_cielhry", "question": "Čo musia banditi urobiť, aby vyhrali hru?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_cielhry"]}
+{"chunk_id": "rule_general_pripravahry", "question": "Akým spôsobom sú rozdeľované role pred začiatkom hry?", "category": "lookup", "gold_chunk_ids": ["rule_general_pripravahry"]}
+{"chunk_id": "rule_general_pripravahry", "question": "Ako sa určuje počet kariet, ktoré dostane každý hráč na začiatku?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_pripravahry"]}
+{"chunk_id": "rule_general_priebehtahu", "question": "Aké sú fázy každého ťahu v hre?", "category": "lookup", "gold_chunk_ids": ["rule_general_priebehtahu"]}
+{"chunk_id": "rule_general_priebehtahu", "question": "Koľko kariet môže mať hráč na ruke na konci svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_priebehtahu"]}
+{"chunk_id": "rule_general_obmedzeniaprihranikariet", "question": "Aké sú obmedzenia pri hraní karty Bang!?", "category": "lookup", "gold_chunk_ids": ["rule_general_obmedzeniaprihranikariet"]}
+{"chunk_id": "rule_general_obmedzeniaprihranikariet", "question": "Prečo nemôže mať hráč v hre viac ako jednu zbraň?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_obmedzeniaprihranikariet"]}
+{"chunk_id": "rule_general_vzdialenostadostrel", "question": "Aká je vzdialenosť medzi susednými hráčmi?", "category": "lookup", "gold_chunk_ids": ["rule_general_vzdialenostadostrel"]}
+{"chunk_id": "rule_general_vzdialenostadostrel", "question": "Ako sa vypočítava vzdialenosť medzi hráčmi a aké faktory ju ovplyvňujú?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_vzdialenostadostrel"]}
+{"chunk_id": "rule_general_stratazivotovvyradenieaodmeny", "question": "Čo sa stane, ak hráč stratí posledný život?", "category": "lookup", "gold_chunk_ids": ["rule_general_stratazivotovvyradenieaodmeny"]}
+{"chunk_id": "rule_general_stratazivotovvyradenieaodmeny", "question": "Aké sú následky vyradenia hráča z hry a aké odmeny alebo tresty to prináša?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_stratazivotovvyradenieaodmeny"]}
+{"chunk_id": "rule_general_koniechry", "question": "Kedy končí hra v kartovej hre Bang!?", "category": "lookup", "gold_chunk_ids": ["rule_general_koniechry"]}
+{"chunk_id": "rule_general_koniechry", "question": "Aké podmienky vedú k ukončeniu hry a kto vyhráva v jednotlivých scenároch?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_koniechry"]}
+{"chunk_id": "rule_general_dolezitevseobecnepripomienky", "question": "Kedy možno hrať kartu Pivo mimo vlastného ťahu?", "category": "lookup", "gold_chunk_ids": ["rule_general_dolezitevseobecnepripomienky"]}
+{"chunk_id": "rule_general_dolezitevseobecnepripomienky", "question": "Aké sú obmedzenia pri hraní kariet počas duelu?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_dolezitevseobecnepripomienky"]}
+{"chunk_id": "rule_general_variantadynamitebox", "question": "Aké sú špeciálne pravidlá pre variant s dreveným dynamitom?", "category": "lookup", "gold_chunk_ids": ["rule_general_variantadynamitebox"]}
+{"chunk_id": "rule_general_variantadynamitebox", "question": "Ako sa správa karta Dynamit v hre s dreveným dynamitom?", "category": "paraphrase", "gold_chunk_ids": ["rule_general_variantadynamitebox"]}
+{"chunk_id": "card_highnoon_benedizione", "question": "Aký efekt má karta Požehnanie v hre Bang!?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_benedizione"]}
+{"chunk_id": "card_highnoon_benedizione", "question": "Čo sa deje s kartami, keď je zahraná karta, ktorá považuje všetky karty za srdcové?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_benedizione"]}
+{"chunk_id": "card_highnoon_cittafantasma", "question": "Aký je účinok karty Mesto duchov na vyradených hráčov?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_cittafantasma"]}
+{"chunk_id": "card_highnoon_cittafantasma", "question": "Ako sa správa hráč, ktorý sa vracia ako duch po vyradení?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_cittafantasma"]}
+{"chunk_id": "card_highnoon_corsaalloro", "question": "Aký je smer hry pri zahraní karty Zlatá horúčka?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_corsaalloro"]}
+{"chunk_id": "card_highnoon_corsaalloro", "question": "Kedy sa efekty kariet zastavia počas hry pri Zlaté horúčke?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_corsaalloro"]}
+{"chunk_id": "card_highnoon_idalton", "question": "Čo musia urobiť hráči, ktorí majú pred sebou modré karty, keď je v hre karta Daltonovci?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_idalton"]}
+{"chunk_id": "card_highnoon_ildottore", "question": "Aký efekt má karta Doktor na hráčov s nízkym počtom životov?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_ildottore"]}
+{"chunk_id": "card_highnoon_ilreverendo", "question": "Aký je efekt karty Reverend v hre Bang!?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_ilreverendo"]}
+{"chunk_id": "card_highnoon_ilreverendo", "question": "Čo sa stane, ak je na stole karta Pivo, keď je vyložený Reverend?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_ilreverendo"]}
+{"chunk_id": "card_highnoon_iltreno", "question": "Aký efekt má karta Príjazd Vlaku na hráčov na konci fázy 1?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_iltreno"]}
+{"chunk_id": "card_highnoon_iltreno", "question": "Ako ovplyvňuje karta Príjazd Vlaku ťah hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_iltreno"]}
+{"chunk_id": "card_highnoon_maledizione", "question": "Čo sa stane s kartami, keď je na stole Kliatba?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_maledizione"]}
+{"chunk_id": "card_highnoon_mezzogiornodifuoco", "question": "Aký je efekt karty Pravé poludnie na životy hráčov na začiatku ich ťahu?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_mezzogiornodifuoco"]}
+{"chunk_id": "card_highnoon_mezzogiornodifuoco", "question": "Ako ovplyvňuje karta Pravé poludnie životy hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_mezzogiornodifuoco"]}
+{"chunk_id": "card_highnoon_sbornia", "question": "Aký je efekt karty Kocovina na špeciálne schopnosti postáv?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_sbornia"]}
+{"chunk_id": "card_highnoon_sbornia", "question": "Čo sa stane so špeciálnymi schopnosťami postáv, keď je na stole Kocovina?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_sbornia"]}
+{"chunk_id": "card_highnoon_sermone", "question": "Aké obmedzenia sú spojené s kartou Kázateľ počas ťahu hráča?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_sermone"]}
+{"chunk_id": "card_highnoon_sermone", "question": "Čo sa deje s kartami BANG! počas ťahu, keď je na stole Kázateľ?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_sermone"]}
+{"chunk_id": "card_highnoon_sete", "question": "Aký je efekt karty Smäd na ťah hráča?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_sete"]}
+{"chunk_id": "card_highnoon_sete", "question": "Ako sa mení počet kariet, ktoré si hráči ťahajú, keď je na stole karta Smäd?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_sete"]}
+{"chunk_id": "card_highnoon_sparatoria", "question": "Aký efekt má karta Prestrelka na počet kariet BANG!, ktoré môžu hráči zahrať?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_sparatoria"]}
+{"chunk_id": "card_highnoon_sparatoria", "question": "Koľko kariet BANG! môže každý hráč zahrať počas svojho ťahu, ak je na stole karta Prestrelka?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_sparatoria"]}
+{"chunk_id": "card_highnoon_bonusmanette", "question": "Aké obmedzenia platia pre hráča, ktorý použije kartu Putá?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_bonusmanette"]}
+{"chunk_id": "card_highnoon_bonusmanette", "question": "Čo sa stane s kartami, ktoré môže hráč zahrať, po aktivovaní efektu karty Putá?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_bonusmanette"]}
+{"chunk_id": "card_highnoon_bonusnuovaidentita", "question": "Aké sú pravidlá týkajúce sa výmeny postavy s kartou Nová identita?", "category": "lookup", "gold_chunk_ids": ["card_highnoon_bonusnuovaidentita"]}
+{"chunk_id": "card_highnoon_bonusnuovaidentita", "question": "Ako ovplyvňuje karta Nová identita životy hráča pri výmene postavy?", "category": "paraphrase", "gold_chunk_ids": ["card_highnoon_bonusnuovaidentita"]}
+{"chunk_id": "rule_highnoon_pravidla", "question": "Aký je postup odkrývania udalostných kariet High Noon počas hry?", "category": "lookup", "gold_chunk_ids": ["rule_highnoon_pravidla"]}
+{"chunk_id": "rule_highnoon_pravidla", "question": "Ako dlhú dobu zostáva aktívna titulná karta High Noon?", "category": "paraphrase", "gold_chunk_ids": ["rule_highnoon_pravidla"]}
+{"chunk_id": "card_hneda_bang", "question": "Aký efekt má karta Bang! a ako často ju môže hráč zahrať?", "category": "lookup", "gold_chunk_ids": ["card_hneda_bang"]}
+{"chunk_id": "card_hneda_bang", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá sa volá Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_bang"]}
+{"chunk_id": "card_hneda_mancato", "question": "Akým spôsobom môže hráč zrušiť efekt karty Bang!", "category": "lookup", "gold_chunk_ids": ["card_hneda_mancato"]}
+{"chunk_id": "card_hneda_mancato", "question": "Čo sa stane, ak hráč zahrá kartu, ktorá zruší efekt útoku na neho?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_mancato"]}
+{"chunk_id": "card_hneda_birra", "question": "Aký efekt má karta Pivo a kedy ju môže hráč zahrať?", "category": "lookup", "gold_chunk_ids": ["card_hneda_birra"]}
+{"chunk_id": "card_hneda_birra", "question": "Kedy je možné zahrnúť kartu a akú, ktorá obnovuje životy, aj mimo svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_birra"]}
+{"chunk_id": "card_hneda_catbalou", "question": "Akú akciu môže hráč vykonať zahraním karty Cat Balou?", "category": "lookup", "gold_chunk_ids": ["card_hneda_catbalou"]}
+{"chunk_id": "card_hneda_panico", "question": "Aký efekt má karta Panika pri zahraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_panico"]}
+{"chunk_id": "card_hneda_panico", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá mu umožňuje zobrať inú kartu od súpera?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_panico"]}
+{"chunk_id": "card_hneda_saloon", "question": "Čo sa stane, keď hráč zahrá kartu Salon?", "category": "lookup", "gold_chunk_ids": ["card_hneda_saloon"]}
+{"chunk_id": "card_hneda_saloon", "question": "Aký efekt sa aktivuje pri zahraní karty, ktorá poskytuje všetkým živým hráčom pivo?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_saloon"]}
+{"chunk_id": "card_hneda_duello", "question": "Aký je priebeh duelu pri zahraní karty Duel?", "category": "lookup", "gold_chunk_ids": ["card_hneda_duello"]}
+{"chunk_id": "card_hneda_duello", "question": "Ako prebieha súťaž medzi dvoma hráčmi pri zahraní karty, ktorá ich vyzve na duel?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_duello"]}
+{"chunk_id": "card_hneda_gatling", "question": "Aký efekt vyvoláva karta Guľomet pri jej zahraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_gatling"]}
+{"chunk_id": "card_hneda_gatling", "question": "Čo sa stane, keď hráč použije kartu, ktorá zasahuje všetkých ostatných hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_gatling"]}
+{"chunk_id": "card_hneda_indiani", "question": "Akú povinnosť majú hráči okrem toho, kto zahral kartu Indiáni?", "category": "lookup", "gold_chunk_ids": ["card_hneda_indiani"]}
+{"chunk_id": "card_hneda_indiani", "question": "Čo sa stane, ak hráči neodhodia kartu Bang! po zahraní určitej karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_indiani"]}
+{"chunk_id": "card_hneda_diligenza", "question": "Aký efekt má karta Dostavník, keď sa zahrá?", "category": "lookup", "gold_chunk_ids": ["card_hneda_diligenza"]}
+{"chunk_id": "card_hneda_diligenza", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá mu umožní potiahnuť 2 karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_diligenza"]}
+{"chunk_id": "card_hneda_wellsfargo", "question": "Aký je účinok zahrania karty Wells Fargo?", "category": "lookup", "gold_chunk_ids": ["card_hneda_wellsfargo"]}
+{"chunk_id": "card_hneda_wellsfargo", "question": "Čo sa stane, keď si hráč zahrá kartu, ktorá mu umožňuje potiahnuť 3 karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_wellsfargo"]}
+{"chunk_id": "card_hneda_emporio", "question": "Aký efekt má karta Hokynarstvi, keď sa vyloží na stôl?", "category": "lookup", "gold_chunk_ids": ["card_hneda_emporio"]}
+{"chunk_id": "card_hneda_emporio", "question": "Koľko kariet sa vyloží na stôl pri zahratí karty, a ako si ich hráči berú?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_emporio"]}
+{"chunk_id": "card_hneda_pugno", "question": "Aký efekt vyvoláva karta Úder na hráča vo vzdialenosti 1?", "category": "lookup", "gold_chunk_ids": ["card_hneda_pugno"]}
+{"chunk_id": "card_hneda_pugno", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá spôsobí efekt Bang! na iného hráča?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_pugno"]}
+{"chunk_id": "card_hneda_schivata", "question": "Aký efekt má karta Úhyb, keď sa zahrá?", "category": "lookup", "gold_chunk_ids": ["card_hneda_schivata"]}
+{"chunk_id": "card_hneda_schivata", "question": "Čo sa stane po zahraní karty, ktorá hráčovi umožní potiahnuť 1 kartu z balíčka?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_schivata"]}
+{"chunk_id": "card_hneda_rissa", "question": "Aký je efekt karty Rvačka pri jej zahraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_rissa"]}
+{"chunk_id": "card_hneda_rissa", "question": "Čo sa stane, ak zahráš kartu, ktorá sa volá Rvačka, spolu s odhodením inej karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_rissa"]}
+{"chunk_id": "card_hneda_ragtime", "question": "Aký účinok má karta Rag Time, keď sa zahrá?", "category": "lookup", "gold_chunk_ids": ["card_hneda_ragtime"]}
+{"chunk_id": "card_hneda_ragtime", "question": "Čo sa stane, ak zahráš Rag Time a odhodíš inú kartu?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_ragtime"]}
+{"chunk_id": "card_hneda_springfield", "question": "Aký je efekt karty Springfield pri jej zahraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_springfield"]}
+{"chunk_id": "card_hneda_springfield", "question": "Čo sa stane, ak zahráš Springfield a odhodíš ďalšiu kartu bez účinku?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_springfield"]}
+{"chunk_id": "card_hneda_tequila", "question": "Aký je efekt karty Tequila pri jej hraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_tequila"]}
+{"chunk_id": "card_hneda_tequila", "question": "Čo umožňuje karta Tequila, ak sa zahrá spolu s odhodením inej karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_tequila"]}
+{"chunk_id": "card_hneda_whisky", "question": "Akú výhodu získaš zahraním karty Whiskey?", "category": "lookup", "gold_chunk_ids": ["card_hneda_whisky"]}
+{"chunk_id": "card_hneda_whisky", "question": "Čo sa stane, ak zahráš Whiskey a odhodíš inú kartu bez účinku?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_whisky"]}
+{"chunk_id": "card_hneda_bandidos", "question": "Aký je efekt karty Divoká Banda?", "category": "lookup", "gold_chunk_ids": ["card_hneda_bandidos"]}
+{"chunk_id": "card_hneda_bandidos", "question": "Čo sa stane, ak hráč zahrá kartu, ktorá núti ostatných hráčov odhodiť karty?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_bandidos"]}
+{"chunk_id": "card_hneda_tornado", "question": "Aký efekt má karta Tornádo na hráčov?", "category": "lookup", "gold_chunk_ids": ["card_hneda_tornado"]}
+{"chunk_id": "card_hneda_tornado", "question": "Ako prebieha výmena kariet pri zahraní karty, ktorá sa volá Tornádo?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_tornado"]}
+{"chunk_id": "card_hneda_fuga", "question": "Aký je účel karty Útek?", "category": "lookup", "gold_chunk_ids": ["card_hneda_fuga"]}
+{"chunk_id": "card_hneda_fuga", "question": "Čo umožňuje karta, ktorá bráni efektom iných kariet?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_fuga"]}
+{"chunk_id": "card_hneda_mira", "question": "Ako sa používa karta Dvojitá rána v kombinácii s kartou Bang!?", "category": "lookup", "gold_chunk_ids": ["card_hneda_mira"]}
+{"chunk_id": "card_hneda_mira", "question": "Aký je spôsob, ako karta Dvojitá rána odoberá životy?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_mira"]}
+{"chunk_id": "card_hneda_ritornodifiamma", "question": "Aký efekt má karta Opätovná palba na útočiaceho hráča?", "category": "lookup", "gold_chunk_ids": ["card_hneda_ritornodifiamma"]}
+{"chunk_id": "card_hneda_ritornodifiamma", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá sa volá Opätovná palba?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_ritornodifiamma"]}
+{"chunk_id": "card_hneda_salvo", "question": "Aký efekt má karta Obetavý skok, keď sa zahrá?", "category": "lookup", "gold_chunk_ids": ["card_hneda_salvo"]}
+{"chunk_id": "card_hneda_salvo", "question": "Čo sa stane, ak hráč zahrá Obetavý skok a zachráni iného hráča pred smrťou?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_salvo"]}
+{"chunk_id": "card_hneda_sventagliata", "question": "Akým spôsobom ovplyvňuje karta Roztrieštená guľka primárneho a sekundárneho cieľa?", "category": "lookup", "gold_chunk_ids": ["card_hneda_sventagliata"]}
+{"chunk_id": "card_hneda_sventagliata", "question": "Kedy sa sekundárny cieľ stáva cieľom dodatočného efektu Bang! pri zahraní Roztrieštenej guľky?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_sventagliata"]}
+{"chunk_id": "card_hneda_tomahawk", "question": "Ako môže karta Tomahawk zasiahnuť hráča vo vzdialenosti 2?", "category": "lookup", "gold_chunk_ids": ["card_hneda_tomahawk"]}
+{"chunk_id": "card_hneda_tomahawk", "question": "Na akú vzdialenosť môže byť použitý efekt Bang! pri zahraní Tomahawku?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_tomahawk"]}
+{"chunk_id": "card_hneda_poker", "question": "Aký je výsledok, ak medzi vyloženými kartami pri Pokeri nie je Eso?", "category": "lookup", "gold_chunk_ids": ["card_hneda_poker"]}
+{"chunk_id": "card_hneda_poker", "question": "Čo sa stane, ak hráč zahrá kartu Poker a nájde Eso medzi vyloženými kartami?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_poker"]}
+{"chunk_id": "card_hneda_ultimogiro", "question": "Aký efekt získate zahraním karty Posledné pivo?", "category": "lookup", "gold_chunk_ids": ["card_hneda_ultimogiro"]}
+{"chunk_id": "card_hneda_ultimogiro", "question": "Môžete kartu Posledné pivo zahrať aj mimo svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_ultimogiro"]}
+{"chunk_id": "card_hneda_trainrobberya", "question": "Aký efekt vyvoláva karta Vlaková lúpež pri jej zahraní proti inému hráčovi?", "category": "lookup", "gold_chunk_ids": ["card_hneda_trainrobberya"]}
+{"chunk_id": "card_hneda_trainrobberya", "question": "Čo sa stane, keď zahráte kartu, ktorá vyvoláva toľko efektov Bang!, koľko má hráč kariet v ruke?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_trainrobberya"]}
+{"chunk_id": "card_hneda_cactus", "question": "Aké účinky má karta Kaktus po jej zahraní?", "category": "lookup", "gold_chunk_ids": ["card_hneda_cactus"]}
+{"chunk_id": "card_hneda_cactus", "question": "Čo sa stane, ak otočíte vrchnú kartu balíčka po zahraní karty, ktorá vyvoláva efekt Vedle!?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_cactus"]}
+{"chunk_id": "card_hneda_evaded", "question": "Aký je účinok karty K zemi! pri vyhnutí sa efektu Vedle!?", "category": "lookup", "gold_chunk_ids": ["card_hneda_evaded"]}
+{"chunk_id": "card_hneda_evaded", "question": "Čo sa stane, ak si hráč vezme kartu, proti ktorej použil efekt Vedle!?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_evaded"]}
+{"chunk_id": "card_hneda_mostwanted", "question": "Aký efekt má karta Najhľadanejší na hráčov, ktorí ju zahrajú?", "category": "lookup", "gold_chunk_ids": ["card_hneda_mostwanted"]}
+{"chunk_id": "card_hneda_mostwanted", "question": "Čo sa stane, ak všetci hráči naraz stratí život pri ťahaní kariet z balíčka?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_mostwanted"]}
+{"chunk_id": "card_hneda_moneybag", "question": "Aký efekt má karta Vak peňazí, ak je na vrchu hnedá karta?", "category": "lookup", "gold_chunk_ids": ["card_hneda_moneybag"]}
+{"chunk_id": "card_hneda_moneybag", "question": "Čo sa stane, keď zahráte kartu, ak je na vrchu odhadzovacej kopy hnedá karta?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_moneybag"]}
+{"chunk_id": "card_hneda_kniferevolver", "question": "Aký je efekt karty Revolver s nožom?", "category": "lookup", "gold_chunk_ids": ["card_hneda_kniferevolver"]}
+{"chunk_id": "card_hneda_kniferevolver", "question": "Čo sa stane, ak zahráte kartu s nožom a otočíte vrchnú kartu balíčka?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_kniferevolver"]}
+{"chunk_id": "card_hneda_switch", "question": "Aký účel má karta Výhybka v hre?", "category": "lookup", "gold_chunk_ids": ["card_hneda_switch"]}
+{"chunk_id": "card_hneda_switch", "question": "Čo môžete urobiť s kartou, ak ju zahráte a chcete zmeniť svoju zbraň?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_switch"]}
+{"chunk_id": "card_hneda_nextstopa", "question": "Aký efekt má karta Nasledujúca stanica na vlak?", "category": "lookup", "gold_chunk_ids": ["card_hneda_nextstopa"]}
+{"chunk_id": "card_hneda_nextstopa", "question": "Čo sa stane, keď posuniete vlak o 1 stanicu dopredu touto kartou?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_nextstopa"]}
+{"chunk_id": "card_hneda_fullsteam", "question": "Aký je účinok karty Plnou parou vpred?", "category": "lookup", "gold_chunk_ids": ["card_hneda_fullsteam"]}
+{"chunk_id": "card_hneda_fullsteam", "question": "Čo sa deje, keď zahráte kartu, ktorá posunie vlak priamo na koniec trate?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_fullsteam"]}
+{"chunk_id": "card_hneda_watertower", "question": "Akú výhodu získate zahraním karty Vodojem?", "category": "lookup", "gold_chunk_ids": ["card_hneda_watertower"]}
+{"chunk_id": "card_hneda_watertower", "question": "Čo môžete získať bez poplatku, ak zahráte Vodojem?", "category": "paraphrase", "gold_chunk_ids": ["card_hneda_watertower"]}
+{"chunk_id": "rule_hnede_dohoda_dohoda", "question": "Aké karty sa počítajú do limitu Bang! podľa pravidla Dohoda?", "category": "lookup", "gold_chunk_ids": ["rule_hnede_dohoda_dohoda"]}
+{"chunk_id": "rule_hnede_dohoda_dohoda", "question": "Ktoré karty môže hráč zahrať na záchranu pred vyradením, ak je len 2 hráči?", "category": "paraphrase", "gold_chunk_ids": ["rule_hnede_dohoda_dohoda"]}
+{"chunk_id": "card_modra_barile", "question": "Aký efekt má karta Barel, keď je hráč cieľom efektu Bang!?", "category": "lookup", "gold_chunk_ids": ["card_modra_barile"]}
+{"chunk_id": "card_modra_barile", "question": "Čo sa stane, ak hráč ťahá srdcovú kartu, keď má pred sebou Barel?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_barile"]}
+{"chunk_id": "card_modra_dinamite", "question": "Aké sú následky, ak hráč ťahá kartu s hodnotou 2 až 9, zatiaľ čo má pred sebou Dynamit?", "category": "lookup", "gold_chunk_ids": ["card_modra_dinamite"]}
+{"chunk_id": "card_modra_dinamite", "question": "Čo sa stane s Dynamitom, ak má hráč pred sebou už jeden?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_dinamite"]}
+{"chunk_id": "card_modra_prigione", "question": "Akú kartu si musí hráč ťahať, keď má pred sebou Väzenie?", "category": "lookup", "gold_chunk_ids": ["card_modra_prigione"]}
+{"chunk_id": "card_modra_prigione", "question": "Čo sa stane, ak hráč ťahá srdcovú kartu, zatiaľ čo je vo Väzení?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_prigione"]}
+{"chunk_id": "card_modra_serpenteasonagli", "question": "Aký efekt spôsobí Chrastiač, ak hráč ťahá listovú kartu?", "category": "lookup", "gold_chunk_ids": ["card_modra_serpenteasonagli"]}
+{"chunk_id": "card_modra_serpenteasonagli", "question": "Kedy a akým spôsobom sa môže Chrastiač odstrániť z hry?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_serpenteasonagli"]}
+{"chunk_id": "card_modra_volcanic", "question": "Aký je efekt karty Volcanic na použitie kariet Bang?", "category": "lookup", "gold_chunk_ids": ["card_modra_volcanic"]}
+{"chunk_id": "card_modra_volcanic", "question": "Čo umožňuje hráčovi karta, ktorá zvyšuje dosah pri použití kariet Bang?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_volcanic"]}
+{"chunk_id": "card_modra_shotgun", "question": "Aký je efekt brokovnice, ak je hráč zasiahnutý kartou Bang?", "category": "lookup", "gold_chunk_ids": ["card_modra_shotgun"]}
+{"chunk_id": "card_modra_shotgun", "question": "Čo sa stane, ak hráč dostane zásah z brokovnice a má na ruke Pivo?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_shotgun"]}
+{"chunk_id": "card_modra_lemat", "question": "Akú kartu môže hráč použiť s kartou Lemat ako kartu Bang?", "category": "lookup", "gold_chunk_ids": ["card_modra_lemat"]}
+{"chunk_id": "card_modra_lemat", "question": "Čo sa stane s kartami, ktoré sú použité s kartou, ktorá nahrádza kartu Bang?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_lemat"]}
+{"chunk_id": "card_modra_schofield", "question": "Aké zvýšenie dosahu poskytuje karta Schofield?", "category": "lookup", "gold_chunk_ids": ["card_modra_schofield"]}
+{"chunk_id": "card_modra_schofield", "question": "O koľko sa zvyšuje dosah pri použití karty, ktorá sa volá Schofield?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_schofield"]}
+{"chunk_id": "card_modra_remington", "question": "Aký dosah poskytuje karta Remington?", "category": "lookup", "gold_chunk_ids": ["card_modra_remington"]}
+{"chunk_id": "card_modra_remington", "question": "Na akú hodnotu zvyšuje karta dosah pri hre?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_remington"]}
+{"chunk_id": "card_modra_carabine", "question": "Aký efekt má karta Karabina?", "category": "lookup", "gold_chunk_ids": ["card_modra_carabine"]}
+{"chunk_id": "card_modra_carabine", "question": "Čo sa stane, ak hráč zahrá kartu, ktorá zvyšuje dosah na 4?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_carabine"]}
+{"chunk_id": "card_modra_winchester", "question": "Aké zvýšenie dosahu poskytuje karta Winchester?", "category": "lookup", "gold_chunk_ids": ["card_modra_winchester"]}
+{"chunk_id": "card_modra_winchester", "question": "Aký je účinok karty, ktorá zvyšuje dosah na 5?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_winchester"]}
+{"chunk_id": "card_modra_dragoon", "question": "Čo umožňuje karta Dragoon počas ťahu hráča?", "category": "lookup", "gold_chunk_ids": ["card_modra_dragoon"]}
+{"chunk_id": "card_modra_dragoon", "question": "Akú výhodu prináša karta, ktorá umožňuje zahrať o jednu kartu Bang! navyše?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_dragoon"]}
+{"chunk_id": "card_modra_mustang", "question": "Aký je efekt karty Mustang na vzdialenosť od hráčov?", "category": "lookup", "gold_chunk_ids": ["card_modra_mustang"]}
+{"chunk_id": "card_modra_mustang", "question": "Ako karta, ktorá zvyšuje vzdialenosť od všetkých hráčov, ovplyvňuje hru?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_mustang"]}
+{"chunk_id": "card_modra_appaloosa", "question": "Aký efekt má karta Appaloosa na vzdialenosť od hráčov?", "category": "lookup", "gold_chunk_ids": ["card_modra_appaloosa"]}
+{"chunk_id": "card_modra_appaloosa", "question": "Čo sa stane s vašou vzdialenosťou od ostatných hráčov, ak zahráte kartu, ktorá ju znižuje o 1?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_appaloosa"]}
+{"chunk_id": "card_modra_silver", "question": "Aký je efekt karty Silver vo vzťahu k vzdialenosti od ostatných hráčov?", "category": "lookup", "gold_chunk_ids": ["card_modra_silver"]}
+{"chunk_id": "card_modra_silver", "question": "Čo robí karta, ktorá znižuje vzdialenosť od všetkých hráčov o 1?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_silver"]}
+{"chunk_id": "card_modra_riparo", "question": "Aký je efekt karty Skrýš na vzdialenosť od ostatných hráčov?", "category": "lookup", "gold_chunk_ids": ["card_modra_riparo"]}
+{"chunk_id": "card_modra_riparo", "question": "Ktorá karta zvyšuje vzdialenosť od ostatných hráčov o 1?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_riparo"]}
+{"chunk_id": "card_modra_refund", "question": "Aký efekt má karta Odškodnenie pri odoberaní alebo odhadzovaní kariet?", "category": "lookup", "gold_chunk_ids": ["card_modra_refund"]}
+{"chunk_id": "card_modra_refund", "question": "Ako sa správa hráč, ktorého karta bola odobraná inému hráčovi, pokiaľ je na stole Odškodnenie?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_refund"]}
+{"chunk_id": "card_modra_taglia", "question": "Čo sa stane, keď je hráč zasiahnutý kartou Odmena?", "category": "lookup", "gold_chunk_ids": ["card_modra_taglia"]}
+{"chunk_id": "card_modra_taglia", "question": "Aký je efekt karty, ktorá sa pokladá pred hráča a má súvislosť s kartou Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_taglia"]}
+{"chunk_id": "card_modra_strongbox", "question": "Aký je efekt karty Pokladnica na konci ťahu hráča?", "category": "lookup", "gold_chunk_ids": ["card_modra_strongbox"]}
+{"chunk_id": "card_modra_strongbox", "question": "Čo sa stane, ak hráč nevytiahne kartu z Väzenia, ale má Pokladnicu?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_strongbox"]}
+{"chunk_id": "card_modra_map", "question": "Aký je efekt karty Mapa v kartovej hre Bang!?", "category": "lookup", "gold_chunk_ids": ["card_modra_map"]}
+{"chunk_id": "card_modra_map", "question": "Čo sa stane, ak hráč použije kartu, ktorá sa volá Mapa?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_map"]}
+{"chunk_id": "card_modra_fantasma", "question": "Aké pravidlá platia pre hráča, ktorý má kartu Duch?", "category": "lookup", "gold_chunk_ids": ["card_modra_fantasma"]}
+{"chunk_id": "card_modra_fantasma", "question": "Ako funguje návrat hráča do hry, keď je pred ním karta Duch?", "category": "paraphrase", "gold_chunk_ids": ["card_modra_fantasma"]}
+{"chunk_id": "card_postava_bartcassidy", "question": "Aký efekt má postava Bart Cassidy, keď stratí život a prežije?", "category": "lookup", "gold_chunk_ids": ["card_postava_bartcassidy"]}
+{"chunk_id": "card_postava_bartcassidy", "question": "Čo sa stane s Bartom Cassidy, ak prežije po strate života?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bartcassidy"]}
+{"chunk_id": "card_postava_blackjack", "question": "Aké pravidlo platí pre kartu Black Jack vo fáze 1?", "category": "lookup", "gold_chunk_ids": ["card_postava_blackjack"]}
+{"chunk_id": "card_postava_blackjack", "question": "Čo sa stane, ak hráč ukáže červenú kartu pri postave Black Jack?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_blackjack"]}
+{"chunk_id": "card_postava_calamityjanet", "question": "Aké špeciálne schopnosti má postava Calamity Janet pri hraní kariet Bang! a Vedle!?", "category": "lookup", "gold_chunk_ids": ["card_postava_calamityjanet"]}
+{"chunk_id": "card_postava_calamityjanet", "question": "Ako môže Calamity Janet interagovať s kartami Bang! a Vedle!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_calamityjanet"]}
+{"chunk_id": "card_postava_elgringo", "question": "Akú schopnosť má postava El Gringo, keď stratí život vďaka karte zahranej iným hráčom?", "category": "lookup", "gold_chunk_ids": ["card_postava_elgringo"]}
+{"chunk_id": "card_postava_elgringo", "question": "Čo sa stane, ak El Gringo stratí život a útočiaci hráč nemá žiadne karty na ruke?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_elgringo"]}
+{"chunk_id": "card_postava_jessejones", "question": "Akú schopnosť má Jesse Jones vo fáze 1, pokiaľ ide o ťahanie kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_jessejones"]}
+{"chunk_id": "card_postava_jessejones", "question": "Čo môže Jesse Jones urobiť vo fáze 1 so kartami iných hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_jessejones"]}
+{"chunk_id": "card_postava_jourdonnais", "question": "Aký pasívny efekt má postava Jourdonnais pri zásahu efektom Bang!?", "category": "lookup", "gold_chunk_ids": ["card_postava_jourdonnais"]}
+{"chunk_id": "card_postava_jourdonnais", "question": "Akú výhodu získa Jourdonnais, ak ťahá srdcovú kartu po zásahu efektom Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_jourdonnais"]}
+{"chunk_id": "card_postava_kitcarlson", "question": "Aké sú akcie, ktoré môže Kit Carlson vykonať vo fáze 1?", "category": "lookup", "gold_chunk_ids": ["card_postava_kitcarlson"]}
+{"chunk_id": "card_postava_kitcarlson", "question": "Čo sa stane s kartami, keď Kit Carlson ťahá v prvej fáze?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_kitcarlson"]}
+{"chunk_id": "card_postava_luckyduke", "question": "Akú schopnosť má Lucky Duke, pokiaľ ide o ťahanie kariet na efekt?", "category": "lookup", "gold_chunk_ids": ["card_postava_luckyduke"]}
+{"chunk_id": "card_postava_luckyduke", "question": "Koľkokrát môže Lucky Duke ťahať na efekt, ako je napríklad barrel a dynamit?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_luckyduke"]}
+{"chunk_id": "card_postava_paulregret", "question": "Aký je efekt postavy Paul Regret, pokiaľ ide o vzdialenosť od ostatných hráčov?", "category": "lookup", "gold_chunk_ids": ["card_postava_paulregret"]}
+{"chunk_id": "card_postava_paulregret", "question": "Ako postava Paul Regret ovplyvňuje vzdialenosť od ostatných hráčov v hre?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_paulregret"]}
+{"chunk_id": "card_postava_pedroramirez", "question": "Aké sú schopnosti postavy Pedro Ramiréz pri ťahaní kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_pedroramirez"]}
+{"chunk_id": "card_postava_pedroramirez", "question": "Čo môže robiť Pedro Ramiréz počas fázy 1 s kartami?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_pedroramirez"]}
+{"chunk_id": "card_postava_rosedoolan", "question": "Aký je efekt postavy Rose Doolan na vzdialenosť od ostatných hráčov?", "category": "lookup", "gold_chunk_ids": ["card_postava_rosedoolan"]}
+{"chunk_id": "card_postava_rosedoolan", "question": "Ako postava Rose Doolan mení vzdialenosť od ostatných hráčov v hre?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_rosedoolan"]}
+{"chunk_id": "card_postava_sidketchum", "question": "Akú schopnosť má postava Sid Ketchum, ak vyhodí 2 karty?", "category": "lookup", "gold_chunk_ids": ["card_postava_sidketchum"]}
+{"chunk_id": "card_postava_sidketchum", "question": "Čo môže Sid Ketchum urobiť s vyhodenými kartami, aby si doplnil život?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_sidketchum"]}
+{"chunk_id": "card_postava_slab", "question": "Aké sú špeciálne pravidlá pre postavu Slab The Killer pri použití karty Bang!?", "category": "lookup", "gold_chunk_ids": ["card_postava_slab"]}
+{"chunk_id": "card_postava_slab", "question": "Ako postava Slab The Killer ovplyvňuje použitie karty Bang! a vedľajších efektov?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_slab"]}
+{"chunk_id": "card_postava_suzylafayette", "question": "Aký je efekt Suzy Lafayette, keď nemá na ruke žiadnu kartu?", "category": "lookup", "gold_chunk_ids": ["card_postava_suzylafayette"]}
+{"chunk_id": "card_postava_suzylafayette", "question": "Čo sa stane, keď Suzy Lafayette potiahne kartu počas Duela?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_suzylafayette"]}
+{"chunk_id": "card_postava_vulturesam", "question": "Aký efekt má Vulture Sam, keď je hráč vyradený z hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_vulturesam"]}
+{"chunk_id": "card_postava_vulturesam", "question": "Čo robí Vulture Sam s kartami vyradeného hráča?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_vulturesam"]}
+{"chunk_id": "card_postava_willythekid", "question": "Koľko kariet Bang! môže zahrať Willy The Kid?", "category": "lookup", "gold_chunk_ids": ["card_postava_willythekid"]}
+{"chunk_id": "card_postava_willythekid", "question": "Aké sú možnosti Willyho The Kida pri hraní kariet Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_willythekid"]}
+{"chunk_id": "card_postava_apachekid", "question": "Aký je efekt kárových kariet na Apache Kida?", "category": "lookup", "gold_chunk_ids": ["card_postava_apachekid"]}
+{"chunk_id": "card_postava_apachekid", "question": "Kedy nemôže Apache Kid používať kárové karty?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_apachekid"]}
+{"chunk_id": "card_postava_bellestar", "question": "Aký je efekt kariet vyložených pred ostatnými hráčmi počas ťahu Belle Star?", "category": "lookup", "gold_chunk_ids": ["card_postava_bellestar"]}
+{"chunk_id": "card_postava_bellestar", "question": "Ako Belle Star ovplyvňuje modré a zelené karty vyložené pred inými hráčmi?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bellestar"]}
+{"chunk_id": "card_postava_billnoface", "question": "Aký efekt má Bill Noface vo fáze 1 pri ťahaní kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_billnoface"]}
+{"chunk_id": "card_postava_billnoface", "question": "Čo sa deje, keď Bill Noface potiahne karty počas svojej fázy 1?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_billnoface"]}
+{"chunk_id": "card_postava_chuckwengam", "question": "Akú schopnosť má Chuck Wengam vo svojom ťahu a aké sú jej obmedzenia?", "category": "lookup", "gold_chunk_ids": ["card_postava_chuckwengam"]}
+{"chunk_id": "card_postava_chuckwengam", "question": "Akým spôsobom môže Chuck Wengam potiahnuť karty počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_chuckwengam"]}
+{"chunk_id": "card_postava_docholyday", "question": "Aký efekt môže Doc Holyday vyvolať odhodením 2 kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_docholyday"]}
+{"chunk_id": "card_postava_docholyday", "question": "Ako môže Doc Holyday použiť efekt Bang! počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_docholyday"]}
+{"chunk_id": "card_postava_elenafuente", "question": "Aký efekt môže Elena Fuente zahrať z ruky?", "category": "lookup", "gold_chunk_ids": ["card_postava_elenafuente"]}
+{"chunk_id": "card_postava_elenafuente", "question": "Čo môže Elena Fuente urobiť so svojou kartou z ruky?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_elenafuente"]}
+{"chunk_id": "card_postava_gregdigger", "question": "Aký efekt má Greg Digger pri vyradení iných postáv z hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_gregdigger"]}
+{"chunk_id": "card_postava_gregdigger", "question": "Ako Greg Digger reaguje na vyradenie iných hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_gregdigger"]}
+{"chunk_id": "card_postava_herbhunter", "question": "Aký efekt má postava Herb Hunter, keď je iná postava vyradená z hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_herbhunter"]}
+{"chunk_id": "card_postava_herbhunter", "question": "Čo sa stane, keď Herb Hunter zabije banditu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_herbhunter"]}
+{"chunk_id": "card_postava_josedelgado", "question": "Akú schopnosť má Jose Delgado v svojom ťahu a koľkokrát ju môže použiť?", "category": "lookup", "gold_chunk_ids": ["card_postava_josedelgado"]}
+{"chunk_id": "card_postava_josedelgado", "question": "Koľko kariet si môže Jose Delgado potiahnuť, ak odhodí modrú kartu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_josedelgado"]}
+{"chunk_id": "card_postava_mollystark", "question": "Aký bonus získa Molly Stark, keď zahrá kartu mimo svojho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_mollystark"]}
+{"chunk_id": "card_postava_mollystark", "question": "Ako funguje schopnosť Molly Stark pri Dueli?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_mollystark"]}
+{"chunk_id": "card_postava_patbrennan", "question": "Akú akciu môže vykonať Pat Brennan, keď preskočí fázu 1?", "category": "lookup", "gold_chunk_ids": ["card_postava_patbrennan"]}
+{"chunk_id": "card_postava_patbrennan", "question": "Ktoré typy kariet si môže Pat Brennan zobrať zo stola?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_patbrennan"]}
+{"chunk_id": "card_postava_pixiepete", "question": "Koľko kariet si potiahne Pixie Pete vo fáze 1 a ako sa to mení, ak vstúpi do hry ako duch?", "category": "lookup", "gold_chunk_ids": ["card_postava_pixiepete"]}
+{"chunk_id": "card_postava_pixiepete", "question": "Aké sú rozdiely v ťahu Pixie Pete v porovnaní s bežnými postavami?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_pixiepete"]}
+{"chunk_id": "card_postava_seanmallory", "question": "Aký je efekt postavy Sean Mallory, pokiaľ ide o maximálny počet kariet na ruke?", "category": "lookup", "gold_chunk_ids": ["card_postava_seanmallory"]}
+{"chunk_id": "card_postava_seanmallory", "question": "Čo umožňuje Sean Mallory ohľadom počtu kariet, ktoré môže mať na ruke počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_seanmallory"]}
+{"chunk_id": "card_postava_tequilajoe", "question": "Aký je špeciálny efekt karty Pivo, keď ju zahrá Tequila Joe?", "category": "lookup", "gold_chunk_ids": ["card_postava_tequilajoe"]}
+{"chunk_id": "card_postava_tequilajoe", "question": "Ako Tequila Joe ovplyvňuje liečenie, keď zahrá kartu Pivo?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_tequilajoe"]}
+{"chunk_id": "card_postava_veracuster", "question": "Akú schopnosť má Vera Custer na začiatku svojho ťahu a čo robí s ňou?", "category": "lookup", "gold_chunk_ids": ["card_postava_veracuster"]}
+{"chunk_id": "card_postava_veracuster", "question": "Akým spôsobom môže Vera Custer kopírovať schopnosti iných postáv?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_veracuster"]}
+{"chunk_id": "card_postava_madameyto", "question": "Aký efekt má schopnosť Madam Yto pri zahraní karty Pivo?", "category": "lookup", "gold_chunk_ids": ["card_postava_madameyto"]}
+{"chunk_id": "card_postava_madameyto", "question": "Čo sa stane, keď niekto zahrá kartu Pivo a akú reakciu môže mať Madam Yto?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_madameyto"]}
+{"chunk_id": "card_postava_donbell", "question": "Aký je efekt červenej karty, ktorú ťahá Don Bell na konci svojho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_donbell"]}
+{"chunk_id": "card_postava_donbell", "question": "Čo sa stane, ak Don Bell ťahá červenú kartu na konci svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_donbell"]}
+{"chunk_id": "card_postava_bigspencer", "question": "Akú má schopnosť postava Big Spencer, pokiaľ ide o hranie karty Vedle!?", "category": "lookup", "gold_chunk_ids": ["card_postava_bigspencer"]}
+{"chunk_id": "card_postava_bigspencer", "question": "Čo nemôže robiť Big Spencer s kartou Vedle!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bigspencer"]}
+{"chunk_id": "card_postava_youlgrinner", "question": "Aké pravidlo platí pre Youla Grinnera pred fázou 1?", "category": "lookup", "gold_chunk_ids": ["card_postava_youlgrinner"]}
+{"chunk_id": "card_postava_youlgrinner", "question": "Čo musia ostatní hráči urobiť, ak majú viac kariet ako Youl Grinner?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_youlgrinner"]}
+{"chunk_id": "card_postava_greygorydeck", "question": "Aký je efekt schopnosti Greygory Deck na začiatku hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_greygorydeck"]}
+{"chunk_id": "card_postava_greygorydeck", "question": "Čo sa stane, ak sa Greygory Deck rozhodne vymeniť svoje postavy?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_greygorydeck"]}
+{"chunk_id": "card_postava_leevankliff", "question": "Akým spôsobom môže Lee Van Kliff zopakovať efekt hnedej karty?", "category": "lookup", "gold_chunk_ids": ["card_postava_leevankliff"]}
+{"chunk_id": "card_postava_leevankliff", "question": "Čo sa stane, ak Lee Van Kliff zopakuje kartu Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_leevankliff"]}
+{"chunk_id": "card_postava_garylooter", "question": "Akú schopnosť má Gary Looter v súvislosti s odhadzovaním kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_garylooter"]}
+{"chunk_id": "card_postava_garylooter", "question": "Kde si Gary Looter berie karty počas fázy 3?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_garylooter"]}
+{"chunk_id": "card_postava_terenkill", "question": "Akú schopnosť má postava Teren Kill, keď je vyradená z hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_terenkill"]}
+{"chunk_id": "card_postava_terenkill", "question": "Čo sa stane, ak Teren Kill ťahá kartu a nie sú to piky?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_terenkill"]}
+{"chunk_id": "card_postava_flintwestwood", "question": "Akým spôsobom môže Flint Westwood vymeniť kartu počas svojho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_flintwestwood"]}
+{"chunk_id": "card_postava_flintwestwood", "question": "Čo sa stane, ak má cieľový hráč iba jednu kartu pri vymene?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_flintwestwood"]}
+{"chunk_id": "card_postava_johnpain", "question": "Aká je schopnosť postavy John Pain pri ťahaní kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_johnpain"]}
+{"chunk_id": "card_postava_johnpain", "question": "Kedy si môže John Pain vziať otočenú kartu do ruky?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_johnpain"]}
+{"chunk_id": "card_postava_henryblock", "question": "Aký efekt má Henry Block, keď niekto odoberie alebo odhodí kartu z jeho ruky?", "category": "lookup", "gold_chunk_ids": ["card_postava_henryblock"]}
+{"chunk_id": "card_postava_henryblock", "question": "Kedy sa spustí efekt automatického výstrelu pri Henrym Blockovi?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_henryblock"]}
+{"chunk_id": "card_postava_coloradobill", "question": "Aký efekt má Colorado Bill, keď niekto zahrá kartu Vedle! proti jeho karte Bang!?", "category": "lookup", "gold_chunk_ids": ["card_postava_coloradobill"]}
+{"chunk_id": "card_postava_coloradobill", "question": "Čo sa stane, ak Colorado Bill ťahá vrchnú kartu balíčka a je to pika?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_coloradobill"]}
+{"chunk_id": "card_postava_mickdefender", "question": "Aký efekt má schopnosť Micka Defendera, keď sa stane cieľom karty alebo efektu?", "category": "lookup", "gold_chunk_ids": ["card_postava_mickdefender"]}
+{"chunk_id": "card_postava_mickdefender", "question": "Čo môže Mick Defender urobiť, ak sa stane cieľom útoku, aby sa vyhol jeho účinkom?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_mickdefender"]}
+{"chunk_id": "card_postava_lemonadejim", "question": "Aký je efekt, ktorý získava Limonádový Jim, keď niektorý hráč zahrá kartu Pivo?", "category": "lookup", "gold_chunk_ids": ["card_postava_lemonadejim"]}
+{"chunk_id": "card_postava_lemonadejim", "question": "Čo môže Limonádový Jim urobiť, keď iný hráč zahrá Pivo?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_lemonadejim"]}
+{"chunk_id": "card_postava_evelynshebang", "question": "Aký mechanizmus má Evelyn Shebang, keď sa rozhoduje o počte ťahaných kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_evelynshebang"]}
+{"chunk_id": "card_postava_evelynshebang", "question": "Čo sa stane, ak Evelyn Shebang neťahá niektoré karty počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_evelynshebang"]}
+{"chunk_id": "card_postava_bonusjohnnykisch", "question": "Aký efekt má Johnny Kisch, keď vyloží kartu do hry?", "category": "lookup", "gold_chunk_ids": ["card_postava_bonusjohnnykisch"]}
+{"chunk_id": "card_postava_bonusjohnnykisch", "question": "Čo sa deje s kartami v hre, keď Johnny Kisch zahrá kartu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bonusjohnnykisch"]}
+{"chunk_id": "card_postava_bonusclausthesaint", "question": "Čo robí Claus The Saint počas svojej fázy 1 s kartami, ktoré má?", "category": "lookup", "gold_chunk_ids": ["card_postava_bonusclausthesaint"]}
+{"chunk_id": "card_postava_bonusclausthesaint", "question": "Akú výhodu má Claus The Saint pri rozdávaní kariet v jeho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bonusclausthesaint"]}
+{"chunk_id": "card_postava_bonusunclewill", "question": "Aký je efekt postavy Uncle Will?", "category": "lookup", "gold_chunk_ids": ["card_postava_bonusunclewill"]}
+{"chunk_id": "card_postava_bonusunclewill", "question": "Čo môže Uncle Will zahrať raz za svoj ťah?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bonusunclewill"]}
+{"chunk_id": "card_postava_sgtblaze", "question": "Aký je efekt postavy Sgt. Blaze pri hraní kariet?", "category": "lookup", "gold_chunk_ids": ["card_postava_sgtblaze"]}
+{"chunk_id": "card_postava_sgtblaze", "question": "Čo sa stane, keď Sgt. Blaze zahrá kartu zasahujúcu viacerých hráčov?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_sgtblaze"]}
+{"chunk_id": "card_postava_zippyroy", "question": "Akú schopnosť má Zippy Roy vo vzťahu k posúvaniu vlaku?", "category": "lookup", "gold_chunk_ids": ["card_postava_zippyroy"]}
+{"chunk_id": "card_postava_zippyroy", "question": "Čo Zippy Roy nezískava, keď posúva vlak?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_zippyroy"]}
+{"chunk_id": "card_postava_shadeoconnor", "question": "Aký efekt má Shade O'Connor, keď sa vlak posunie mimo jeho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_shadeoconnor"]}
+{"chunk_id": "card_postava_shadeoconnor", "question": "Čo môže Shade O'Connor urobiť, ak vlak dôjde na konečnú stanicu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_shadeoconnor"]}
+{"chunk_id": "card_postava_dutchwill", "question": "Akú akciu môže Dutch Will vykonať počas fázy 1?", "category": "lookup", "gold_chunk_ids": ["card_postava_dutchwill"]}
+{"chunk_id": "card_postava_dutchwill", "question": "Čo získa Dutch Will, ak odhodí jednu z práve potiahnutých kariet?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_dutchwill"]}
+{"chunk_id": "card_postava_jackymurieta", "question": "Aký efekt môže Jacky Murieta vyvolať za 2 valúny zlata?", "category": "lookup", "gold_chunk_ids": ["card_postava_jackymurieta"]}
+{"chunk_id": "card_postava_jackymurieta", "question": "Čo môže Jacky Murieta spraviť, ak má dosť zlata?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_jackymurieta"]}
+{"chunk_id": "card_postava_joshmccloud", "question": "Ako môže Josh McCloud potiahnuť kartu z balíčka vybavenia?", "category": "lookup", "gold_chunk_ids": ["card_postava_joshmccloud"]}
+{"chunk_id": "card_postava_joshmccloud", "question": "Akú podmienku musí splniť Josh McCloud, ak potiahne čiernu kartu vybavenia?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_joshmccloud"]}
+{"chunk_id": "card_postava_prettyluzena", "question": "Akú zľavu má Pretty Luzena pri kúpe karty vybavenia?", "category": "lookup", "gold_chunk_ids": ["card_postava_prettyluzena"]}
+{"chunk_id": "card_postava_prettyluzena", "question": "Ako má Pretty Luzena výhodu pri nákupe vybavenia v porovnaní s ostatnými?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_prettyluzena"]}
+{"chunk_id": "card_postava_raddiesnake", "question": "Koľkokrát za ťah môže Raddie Snake potiahnuť kartu z balíčka?", "category": "lookup", "gold_chunk_ids": ["card_postava_raddiesnake"]}
+{"chunk_id": "card_postava_raddiesnake", "question": "Akú cenu musí Raddie Snake zaplatiť, aby potiahol kartu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_raddiesnake"]}
+{"chunk_id": "card_postava_simeonpicos", "question": "Aký efekt má Simeon Picos pri strate života?", "category": "lookup", "gold_chunk_ids": ["card_postava_simeonpicos"]}
+{"chunk_id": "card_postava_simeonpicos", "question": "Čo získa Simeon Picos, keď stratí 1 život?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_simeonpicos"]}
+{"chunk_id": "card_postava_bennybrawler", "question": "Aký je efekt postavy Benny Brawler pri získavaní vagónov?", "category": "lookup", "gold_chunk_ids": ["card_postava_bennybrawler"]}
+{"chunk_id": "card_postava_bennybrawler", "question": "Čo môže Benny Brawler urobiť s vagónmi počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_bennybrawler"]}
+{"chunk_id": "card_postava_evanbabbit", "question": "Aký efekt má Evan Babbit, keď je cieľom karty Bang!?", "category": "lookup", "gold_chunk_ids": ["card_postava_evanbabbit"]}
+{"chunk_id": "card_postava_evanbabbit", "question": "Akým spôsobom môže Evan Babbit odkloniť efekt karty Bang!?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_evanbabbit"]}
+{"chunk_id": "card_postava_jimmytexas", "question": "Aké je pravidlo týkajúce sa ťahania kariet pre Jimmyho Texasa na konci jeho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_jimmytexas"]}
+{"chunk_id": "card_postava_jimmytexas", "question": "Čo sa stane, ak sa Jimmy Texas dostane do väzenia a na konci ťahu si ťahá kartu?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_jimmytexas"]}
+{"chunk_id": "card_postava_manuelita", "question": "Aký efekt má schopnosť Manuelity, keď vlak dôjde na konečnú stanicu?", "category": "lookup", "gold_chunk_ids": ["card_postava_manuelita"]}
+{"chunk_id": "card_postava_manuelita", "question": "Kedy sa aplikuje schopnosť Manuelity v porovnaní s efektom lokomotívy?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_manuelita"]}
+{"chunk_id": "card_postava_sancho", "question": "Akú výhodu má Sancho pri získavaní vagónov počas svojho ťahu?", "category": "lookup", "gold_chunk_ids": ["card_postava_sancho"]}
+{"chunk_id": "card_postava_sancho", "question": "Akým spôsobom môže Sancho posunúť vlak pred tým, ako získa vagón?", "category": "paraphrase", "gold_chunk_ids": ["card_postava_sancho"]}
+{"chunk_id": "glossary_vysvetlivky", "question": "Akú vzdialenosť medzi hráčmi môžu meniť iba karty a schopnosti, ktoré to výslovne uvádzajú?", "category": "lookup", "gold_chunk_ids": ["glossary_vysvetlivky"]}
+{"chunk_id": "glossary_vysvetlivky", "question": "Ktoré faktory ovplyvňujú vzdialenosť medzi hráčmi?", "category": "paraphrase", "gold_chunk_ids": ["glossary_vysvetlivky"]}
+{"chunk_id": "card_wildwest_bavaglio", "question": "Aký je efekt karty Roubík?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_bavaglio"]}
+{"chunk_id": "card_wildwest_bavaglio", "question": "Čo sa stane, ak hráč prehovorí, keď je zahraná karta Roubík?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_bavaglio"]}
+{"chunk_id": "card_wildwest_camposanto", "question": "Aký efekt má karta Hřbitov na vyradených hráčov na začiatku ťahu?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_camposanto"]}
+{"chunk_id": "card_wildwest_camposanto", "question": "Ako sa dostávajú vyradení hráči späť do hry, keď je zahraná karta Hřbitov?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_camposanto"]}
+{"chunk_id": "card_wildwest_darlingvalentine", "question": "Aký je účinok karty Miláček Valentýn na hráčov na začiatku ťahu?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_darlingvalentine"]}
+{"chunk_id": "card_wildwest_darlingvalentine", "question": "Čo musia hráči urobiť na začiatku svojho ťahu, keď je zahraná karta Miláček Valentýn?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_darlingvalentine"]}
+{"chunk_id": "card_wildwest_dorothyrage", "question": "Aký je efekt karty Zuřivá Doroty, keď ju hráč zahrá?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_dorothyrage"]}
+{"chunk_id": "card_wildwest_dorothyrage", "question": "Čo musí hráč na ťahu urobiť, ak chce, aby iný hráč zahral kartu pomocou Zuřivé Doroty?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_dorothyrage"]}
+{"chunk_id": "card_wildwest_helenazontero", "question": "Akú akciu vykoná Helena Zontero, keď otočí vrchnú kartu z balíčka?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_helenazontero"]}
+{"chunk_id": "card_wildwest_helenazontero", "question": "Čo sa stane, ak sú otočené karty srdcia alebo káry pri použití schopnosti Heleny Zontero?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_helenazontero"]}
+{"chunk_id": "card_wildwest_ladyrosadeltexas", "question": "Aké sú pravidlá výmeny miest pri hre s kartou Lady Rúže z Texasu?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_ladyrosadeltexas"]}
+{"chunk_id": "card_wildwest_ladyrosadeltexas", "question": "Čo sa deje, keď hráči vymenia miesta počas svojho ťahu?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_ladyrosadeltexas"]}
+{"chunk_id": "card_wildwest_misssusanna", "question": "Aký je efekt karty Madam Zuzana počas ťahu hráčov?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_misssusanna"]}
+{"chunk_id": "card_wildwest_misssusanna", "question": "Aké následky má hráč, ktorý počas ťahu nezahraje aspoň 3 karty pri účinnosti karty Madam Zuzana?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_misssusanna"]}
+{"chunk_id": "card_wildwest_regolamentodiconti", "question": "Akým spôsobom môžu hráči používať karty v súvislosti s kartou Zúčtování?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_regolamentodiconti"]}
+{"chunk_id": "card_wildwest_regolamentodiconti", "question": "Čo znamená, že každú kartu možno hrať ako kartu Bang! pri použití Zúčtování?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_regolamentodiconti"]}
+{"chunk_id": "card_wildwest_sacagaway", "question": "Aké pravidlo platí pre odhalené karty na ruke pri hre s kartou Sacagaway?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_sacagaway"]}
+{"chunk_id": "card_wildwest_sacagaway", "question": "Čo sa stane, ak dôjde k odobratiu karty z ruky hráča, ktorý hraje so Sacagaway?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_sacagaway"]}
+{"chunk_id": "card_wildwest_wildwestshow", "question": "Aký je cieľ hráčov pri karte Divoký Západ?", "category": "lookup", "gold_chunk_ids": ["card_wildwest_wildwestshow"]}
+{"chunk_id": "card_wildwest_wildwestshow", "question": "Čo sa stane s rolami hráčov, keď je zahraná karta Wild West Show?", "category": "paraphrase", "gold_chunk_ids": ["card_wildwest_wildwestshow"]}
+{"chunk_id": "rule_wildwest_pravidla", "question": "Koľko udalostných kariet obsahuje rozšírenie Wild West Show?", "category": "lookup", "gold_chunk_ids": ["rule_wildwest_pravidla"]}
+{"chunk_id": "rule_wildwest_pravidla", "question": "Aký je postup pri spúšťaní udalostí z WWS balíčka?", "category": "paraphrase", "gold_chunk_ids": ["rule_wildwest_pravidla"]}
+{"chunk_id": "card_zelena_bibbia", "question": "Aký efekt vyvoláva karta Bible?", "category": "lookup", "gold_chunk_ids": ["card_zelena_bibbia"]}
+{"chunk_id": "card_zelena_bibbia", "question": "Čo si hráč potiahne po použití karty Biblie?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_bibbia"]}
+{"chunk_id": "card_zelena_borraccia", "question": "Aký efekt má karta Čutora?", "category": "lookup", "gold_chunk_ids": ["card_zelena_borraccia"]}
+{"chunk_id": "card_zelena_borraccia", "question": "Čo sa stane, keď zahráte kartu Borraccia?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_borraccia"]}
+{"chunk_id": "card_zelena_fuciledacaccia", "question": "Aký efekt vyvoláva Puška na bizóny?", "category": "lookup", "gold_chunk_ids": ["card_zelena_fuciledacaccia"]}
+{"chunk_id": "card_zelena_fuciledacaccia", "question": "Aký má dosah efekt Bang! pri použití Pušky na bizóny?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_fuciledacaccia"]}
+{"chunk_id": "card_zelena_cappello", "question": "Aký efekt vyvoláva karta Stetson?", "category": "lookup", "gold_chunk_ids": ["card_zelena_cappello"]}
+{"chunk_id": "card_zelena_cappello", "question": "Čo sa stane, keď hráč použije kartu s názvom Stetson?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_cappello"]}
+{"chunk_id": "card_zelena_conestoga", "question": "Aký efekt má karta Krytý voz a kedy ju môže hráč zahrať?", "category": "lookup", "gold_chunk_ids": ["card_zelena_conestoga"]}
+{"chunk_id": "card_zelena_conestoga", "question": "Ako môže hráč získať kartu od iného hráča pomocou karty Krytý voz?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_conestoga"]}
+{"chunk_id": "card_zelena_derringer", "question": "Aký efekt má karta Derringer a aké sú jej obmedzenia?", "category": "lookup", "gold_chunk_ids": ["card_zelena_derringer"]}
+{"chunk_id": "card_zelena_derringer", "question": "Čo sa stane, keď hráč zahrá kartu, ktorá sa nazýva Derringer?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_derringer"]}
+{"chunk_id": "card_zelena_cancan", "question": "Aké možnosti ponúka karta Kankán pri jej zahraní?", "category": "lookup", "gold_chunk_ids": ["card_zelena_cancan"]}
+{"chunk_id": "card_zelena_cancan", "question": "Ako môže hráč odhodiť kartu inému hráčovi pomocou karty Kankán?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_cancan"]}
+{"chunk_id": "card_zelena_howitzer", "question": "Aký účinok má karta Húfnica na ostatných hráčov?", "category": "lookup", "gold_chunk_ids": ["card_zelena_howitzer"]}
+{"chunk_id": "card_zelena_howitzer", "question": "Čo sa stane, keď hráč použije kartu s názvom Húfnica?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_howitzer"]}
+{"chunk_id": "card_zelena_pepperbox", "question": "Aký efekt vyvoláva karta Pepperbox?", "category": "lookup", "gold_chunk_ids": ["card_zelena_pepperbox"]}
+{"chunk_id": "card_zelena_pepperbox", "question": "Čo sa stane, keď sa zahrá karta, ktorá vyvoláva efekt Bang! na dostrel?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_pepperbox"]}
+{"chunk_id": "card_zelena_placcadiferro", "question": "Akú schopnosť má karta Železný plát?", "category": "lookup", "gold_chunk_ids": ["card_zelena_placcadiferro"]}
+{"chunk_id": "card_zelena_ponyexpress", "question": "Aký je efekt karty Pony express?", "category": "lookup", "gold_chunk_ids": ["card_zelena_ponyexpress"]}
+{"chunk_id": "card_zelena_ponyexpress", "question": "Koľko kariet si ťahá hráč pri zahraní tejto karty?", "category": "paraphrase", "gold_chunk_ids": ["card_zelena_ponyexpress"]}
+{"chunk_id": "card_zelena_pugnale", "question": "Aký efekt má karta Nuž pri vzdialenosti 1?", "category": "lookup", "gold_chunk_ids": ["card_zelena_pugnale"]}
+{"chunk_id": "card_zelena_sombrero", "question": "Čo robí karta Sombrero?", "category": "lookup", "gold_chunk_ids": ["card_zelena_sombrero"]}
