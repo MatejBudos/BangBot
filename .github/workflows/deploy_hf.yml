@@ -29,4 +29,7 @@ jobs:
         run: |
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
-          git push https://Mugenko:${HF_TOKEN}@huggingface.co/spaces/Mugenko/BangBot main --force
+          # Orphan commit — pushes only current files, no history with old binary blobs
+          git checkout --orphan hf-deploy
+          git commit -m "deploy"
+          git push https://Mugenko:${HF_TOKEN}@huggingface.co/spaces/Mugenko/BangBot hf-deploy:main --force
