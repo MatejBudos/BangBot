@@ -60,6 +60,28 @@ def build_table(chunks: list[dict], embeddings: np.ndarray, db_path: str) -> Non
     table.create_fts_index("text_lemmatized", replace=True)
 
 
+def _exact_name_first(results: list[dict], query: str) -> list[dict]:
+    """Promote chunks whose card name matches the full query or any query token."""
+    q_full = query.lower().strip()
+    # Individual tokens catch "čo robí Pivo" → token "pivo" matches card "Pivo"
+    q_tokens = {t.lower() for t in query.split() if len(t) > 1}
+    top, rest = [], []
+    for r in results:
+        names = {
+            (r.get("name_sk") or "").lower(),
+            (r.get("sk_name") or "").lower(),
+            (r.get("name_orig") or "").lower(),
+            *(n.lower() for n in (r.get("alt_names") or [])),
+        }
+        # Full query matches multi-word names ("Posledné pivo");
+        # token match catches single-word names inside a sentence ("Pivo" in "čo robí Pivo")
+        if q_full in names or bool(names & q_tokens):
+            top.append(r)
+        else:
+            rest.append(r)
+    return top + rest
+
+
 class HybridRetriever:
     """Hybrid dense+sparse retriever using LanceDB native RRF fusion."""
 
@@ -69,7 +91,7 @@ class HybridRetriever:
         self._embedder = Embedder()
         self._reranker = RRFReranker(K=60, return_score="all")
 
-    def search(self, query: str, k: int = 5, variant: str = "sparse") -> list[dict]:
+    def search(self, query: str, k: int = 5, variant: str = "hybrid") -> list[dict]:
         """Return top-k chunks. variant: 'dense' | 'sparse' | 'hybrid'."""
         query_vector = self._embedder.embed_query(query)
         query_lemmatized = preprocess_for_fts(query)
@@ -110,9 +132,9 @@ class HybridRetriever:
                 .limit(max(k * 3, 15))
                 .rerank(self._reranker)
                 .to_list()
-            )[:k]
+            )
         else:
-            raw = self._table.search(query_vector).limit(k).to_list()
+            raw = self._table.search(query_vector).limit(max(k * 3, 15)).to_list()
 
         results = []
         for r in raw:
@@ -121,4 +143,4 @@ class HybridRetriever:
             d["_dense_score"] = d.pop("_distance", 0.0)
             d["_sparse_score"] = d.pop("_score", None)
             results.append(d)
-        return results
+        return _exact_name_first(results, query)[:k]
