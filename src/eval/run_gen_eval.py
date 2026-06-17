@@ -20,6 +20,13 @@ from src.generation.agent import BangAgent
 from src.generation.openai_client import LLMUnavailable, OpenAIClient
 from src.generation.prompts import format_context
 from src.retrieval.lancedb_store import HybridRetriever
+from src.schemas import (
+    EvalResult,
+    GenQARow,
+    JudgeRefusalScores,
+    JudgeScores,
+    ToolCallLog,
+)
 
 _GEN_QA_PATH = Path("eval/gen_qa.jsonl")
 _DB_PATH = "artifacts/.lance"
@@ -41,14 +48,14 @@ _JUDGE_SYSTEM_REFUSAL = (
 )
 
 
-def _load_qa(path: Path) -> list[dict]:
+def _load_qa(path: Path) -> list[GenQARow]:
     rows = []
     with open(path, encoding="utf-8-sig") as f:
         for i, line in enumerate(f, 1):
             line = line.strip()
             if line:
                 try:
-                    rows.append(json.loads(line))
+                    rows.append(GenQARow.model_validate(json.loads(line)))
                 except json.JSONDecodeError as exc:
                     raise ValueError(f"Parse error on line {i}: {exc}\n  repr: {repr(line[:120])}") from exc
     return rows
@@ -61,10 +68,11 @@ def _judge(
     generated: str,
     gold_answer: str,
     is_refusal: bool,
-) -> dict:
+) -> JudgeScores | JudgeRefusalScores:
     if is_refusal:
         system = _JUDGE_SYSTEM_REFUSAL
         user = f"Otázka: {question}\n\nVygenerovaná odpoveď: {generated}"
+        schema = JudgeRefusalScores
     else:
         system = _JUDGE_SYSTEM
         user = (
@@ -73,29 +81,33 @@ def _judge(
             f"Referenčná odpoveď: {gold_answer}\n\n"
             f"Vygenerovaná odpoveď: {generated}"
         )
-    response = client.chat.completions.create(
+        schema = JudgeScores
+    response = client.beta.chat.completions.parse(
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        response_format={"type": "json_object"},
+        response_format=schema,
         temperature=0,
         seed=42,
     )
-    return json.loads(response.choices[0].message.content)
+    parsed = response.choices[0].message.parsed
+    if parsed is None:
+        raise ValueError("Structured output parsing failed (model refused or content filtered)")
+    return parsed
 
 
 def _eval_case(
-    row: dict,
+    row: GenQARow,
     agent: BangAgent,
     gen_client: OpenAIClient,
     judge_client: OpenAI,
-) -> dict | None:
-    question = row["question"]
-    gold_chunk_ids: list[str] = row.get("gold_chunk_ids", [])
-    gold_answer: str = row.get("gold_answer", "")
-    is_refusal: bool = row.get("expected_refusal", False)
+) -> EvalResult | None:
+    question = row.question
+    gold_chunk_ids = row.gold_chunk_ids
+    gold_answer = row.gold_answer
+    is_refusal = row.expected_refusal
 
     t0 = time.monotonic()
     try:
@@ -124,49 +136,64 @@ def _eval_case(
         print(f"    SKIP (judge error): {exc}")
         return None
 
-    return {
-        "id": row["id"],
-        "category": row.get("category", "unknown"),
-        "question": question,
-        "agent_tool_calls": agent.tool_calls_log,
-        "agent_selected_chunk_ids": selected_ids,
-        "gold_retrieved": gold_retrieved,
-        "generated_answer": generated,
-        "judge_scores": judge_scores,
-        "n_search_calls": len(agent.tool_calls_log),
-        "n_selected_chunks": len(selected_ids),
-        "tool_token_count": agent.last_tool_token_count,
-        "gen_latency_ms": gen_latency_ms,
-    }
+    return EvalResult(
+        id=row.id,
+        category=row.category,
+        question=question,
+        gold_answer=gold_answer,
+        gold_chunk_ids=gold_chunk_ids,
+        agent_tool_calls=agent.tool_calls_log,
+        agent_selected_chunk_ids=selected_ids,
+        gold_retrieved=gold_retrieved,
+        generated_answer=generated,
+        judge_scores=judge_scores,
+        n_search_calls=len(agent.tool_calls_log),
+        n_selected_chunks=len(selected_ids),
+        tool_token_count=agent.last_tool_token_count,
+        gen_latency_ms=gen_latency_ms,
+    )
 
 
 def _avg(lst: list[float]) -> float:
     return sum(lst) / len(lst) if lst else 0.0
 
 
-def _format_table(by_category: dict[str, list[dict]], all_results: list[dict]) -> str:
+def _format_table(by_category: dict[str, list[EvalResult]], all_results: list[EvalResult]) -> str:
     header = "| Kategória   | N  | Gold@sel | Faith. | Correct. | Cites | Slovak | Avg searches |"
     sep    = "|-------------|----|---------:|-------:|---------:|------:|-------:|-------------:|"
     lines = [header, sep]
 
-    def _row(cat: str, results: list[dict]) -> str:
+    def _row(cat: str, results: list[EvalResult]) -> str:
         n = len(results)
         is_refusal_cat = cat == "refusal"
 
-        slovak = _avg([r["judge_scores"].get("in_slovak", 0) for r in results])
-        avg_searches = _avg([r["n_search_calls"] for r in results])
+        slovak = _avg([r.judge_scores.in_slovak for r in results])
+        avg_searches = _avg([r.n_search_calls for r in results])
 
         if is_refusal_cat:
-            refused = _avg([r["judge_scores"].get("refused_correctly", 0) for r in results])
+            refused = _avg([
+                r.judge_scores.refused_correctly
+                if isinstance(r.judge_scores, JudgeRefusalScores) else 0
+                for r in results
+            ])
             return (
                 f"| {cat:<11} | {n:<2} | —        | —      | —        | —     "
                 f"| {slovak*100:>5.0f}% | refused: {refused*100:.0f}%  |"
             )
 
-        gold_pct = _avg([1.0 if r["gold_retrieved"] else 0.0 for r in results]) * 100
-        faith = _avg([r["judge_scores"].get("faithfulness", 0) for r in results])
-        correct = _avg([r["judge_scores"].get("correctness", 0) for r in results])
-        cites = _avg([r["judge_scores"].get("cites_sources", 0) for r in results]) * 100
+        gold_pct = _avg([1.0 if r.gold_retrieved else 0.0 for r in results]) * 100
+        faith = _avg([
+            r.judge_scores.faithfulness if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in results
+        ])
+        correct = _avg([
+            r.judge_scores.correctness if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in results
+        ])
+        cites = _avg([
+            r.judge_scores.cites_sources if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in results
+        ]) * 100
         return (
             f"| {cat:<11} | {n:<2} | {gold_pct:>7.0f}% "
             f"| {faith:.1f}/2  "
@@ -179,15 +206,24 @@ def _format_table(by_category: dict[str, list[dict]], all_results: list[dict]) -
     for cat in sorted(by_category):
         lines.append(_row(cat, by_category[cat]))
 
-    non_refusal = [r for r in all_results if r.get("category") != "refusal"]
+    non_refusal = [r for r in all_results if r.category != "refusal"]
     if non_refusal:
         n = len(all_results)
-        gold_pct = _avg([1.0 if r["gold_retrieved"] else 0.0 for r in non_refusal]) * 100
-        faith = _avg([r["judge_scores"].get("faithfulness", 0) for r in non_refusal])
-        correct = _avg([r["judge_scores"].get("correctness", 0) for r in non_refusal])
-        cites = _avg([r["judge_scores"].get("cites_sources", 0) for r in non_refusal]) * 100
-        slovak = _avg([r["judge_scores"].get("in_slovak", 0) for r in all_results]) * 100
-        avg_searches = _avg([r["n_search_calls"] for r in all_results])
+        gold_pct = _avg([1.0 if r.gold_retrieved else 0.0 for r in non_refusal]) * 100
+        faith = _avg([
+            r.judge_scores.faithfulness if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in non_refusal
+        ])
+        correct = _avg([
+            r.judge_scores.correctness if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in non_refusal
+        ])
+        cites = _avg([
+            r.judge_scores.cites_sources if isinstance(r.judge_scores, JudgeScores) else 0
+            for r in non_refusal
+        ]) * 100
+        slovak = _avg([r.judge_scores.in_slovak for r in all_results]) * 100
+        avg_searches = _avg([r.n_search_calls for r in all_results])
         lines.append(
             f"| **TOTAL**   | {n:<2} | {gold_pct:>7.0f}% "
             f"| {faith:.1f}/2  "
@@ -218,7 +254,7 @@ def main() -> None:
         random.seed(42)
         rows = random.sample(rows, min(args.sample, len(rows)))
 
-    n_refusal = sum(1 for r in rows if r.get("expected_refusal"))
+    n_refusal = sum(1 for r in rows if r.expected_refusal)
     print(f"Loaded {len(rows)} gen eval rows ({len(rows) - n_refusal} generation, {n_refusal} refusal)")
 
     retriever = HybridRetriever(args.db)
@@ -226,40 +262,40 @@ def main() -> None:
     gen_client = OpenAIClient()
     judge_client = OpenAI(api_key=os.environ.get("OPENAI_KEY"))
 
-    results: list[dict] = []
+    results: list[EvalResult] = []
     _RESULTS_JSONL.parent.mkdir(parents=True, exist_ok=True)
 
     with open(_RESULTS_JSONL, "w", encoding="utf-8") as out_f:
         for i, row in enumerate(rows, 1):
-            print(f"[{i}/{len(rows)}] {row['id']} ({row.get('category', '?')})...", flush=True)
+            print(f"[{i}/{len(rows)}] {row.id} ({row.category})...", flush=True)
             result = _eval_case(row, agent, gen_client, judge_client)
             if result is None:
                 continue
-            scores = result["judge_scores"]
-            if row.get("expected_refusal"):
+            scores = result.judge_scores
+            if row.expected_refusal:
                 print(
-                    f"    refused_correctly={scores.get('refused_correctly')} "
-                    f"in_slovak={scores.get('in_slovak')}"
+                    f"    refused_correctly={scores.refused_correctly if isinstance(scores, JudgeRefusalScores) else '?'} "
+                    f"in_slovak={scores.in_slovak}"
                 )
             else:
                 print(
-                    f"    gold={result['gold_retrieved']} "
-                    f"faith={scores.get('faithfulness')}/2 "
-                    f"correct={scores.get('correctness')}/2 "
-                    f"cites={scores.get('cites_sources')} "
-                    f"searches={result['n_search_calls']}"
+                    f"    gold={result.gold_retrieved} "
+                    f"faith={scores.faithfulness if isinstance(scores, JudgeScores) else '?'}/2 "
+                    f"correct={scores.correctness if isinstance(scores, JudgeScores) else '?'}/2 "
+                    f"cites={scores.cites_sources if isinstance(scores, JudgeScores) else '?'} "
+                    f"searches={result.n_search_calls}"
                 )
             results.append(result)
-            out_f.write(json.dumps(result, ensure_ascii=False) + "\n")
+            out_f.write(result.model_dump_json() + "\n")
             out_f.flush()
 
     if not results:
         print("No results to aggregate.")
         return
 
-    by_category: dict[str, list[dict]] = defaultdict(list)
+    by_category: dict[str, list[EvalResult]] = defaultdict(list)
     for r in results:
-        by_category[r["category"]].append(r)
+        by_category[r.category].append(r)
 
     table = _format_table(by_category, results)
     print("\n" + table + "\n")

@@ -11,6 +11,7 @@ from openai import APIConnectionError, APIStatusError, OpenAI, RateLimitError
 
 from src.generation.openai_client import LLMUnavailable
 from src.retrieval.lancedb_store import HybridRetriever
+from src.schemas import ToolCallLog
 
 _CONFIG_DIR = Path(__file__).parent.parent.parent / "config"
 
@@ -91,7 +92,7 @@ class BangAgent:
             raise ValueError("OPENAI_KEY not set")
         self._client = OpenAI(api_key=key)
         self._retriever = retriever
-        self.tool_calls_log: list[dict] = []
+        self.tool_calls_log: list[ToolCallLog] = []
         self.last_tool_token_count: int | None = None
         self._kept_ids: list[str] | None = None
 
@@ -101,7 +102,7 @@ class BangAgent:
         Populates self.tool_calls_log and self.last_tool_token_count as side effects.
         Raises LLMUnavailable on API errors.
         """
-        self.tool_calls_log = []
+        self.tool_calls_log: list[ToolCallLog] = []
         self.last_tool_token_count = None
         self._kept_ids = None
 
@@ -171,10 +172,9 @@ class BangAgent:
         try:
             args = json.loads(tool_call.function.arguments)
         except json.JSONDecodeError:
-            self.tool_calls_log.append({
-                "query": "<parse error>", "variant": "sparse",
-                "k": 0, "retrieved_ids": [], "n_new": 0,
-            })
+            self.tool_calls_log.append(ToolCallLog(
+                query="<parse error>", variant="sparse", k=0, retrieved_ids=[], n_new=0,
+            ))
             return "Chyba: nepodarilo sa spracovať argumenty nástroja."
 
         query = args.get("query", "")
@@ -191,13 +191,10 @@ class BangAgent:
             seen_ids.add(c.get("id", ""))
             all_chunks.append(c)
 
-        self.tool_calls_log.append({
-            "query": query,
-            "variant": variant,
-            "k": k,
-            "retrieved_ids": retrieved_ids,
-            "n_new": len(new_chunks),
-        })
+        self.tool_calls_log.append(ToolCallLog(
+            query=query, variant=variant, k=k,
+            retrieved_ids=retrieved_ids, n_new=len(new_chunks),
+        ))
 
         if not chunks:
             return f"Nájdené: 0 výsledkov pre dotaz '{query}' [{variant}]."
