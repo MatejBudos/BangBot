@@ -14,7 +14,7 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry Bang!. Portfolio proj
 - `sentence-transformers` + `intfloat/multilingual-e5-base` (dense, lokálne)
 - `lancedb` (native hybrid search + RRF, FTS na `text_lemmatized` stĺpci)
 - `simplemma` (lang='sk') pre lemmatizáciu, custom diacritic strip + SK stopwords
-- `google-genai` + `gemini-2.0-flash` (streaming)
+- `openai` + `gpt-4.1-mini` (generation: tool-calling loop + streaming odpoveď)
 - `streamlit` (UI, hostované na HF Spaces)
 - `pytest`
 
@@ -58,10 +58,12 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry Bang!. Portfolio proj
 
 Viď `ARCHITECTURE.md` sekcia 8. Krátky reminder:
 ```
+src/schemas.py  # zdieľané Pydantic schémy
 src/{ingestion,embedding,retrieval,generation,eval,app}/
-scripts/{build_index,query,generate_eval}.py
+scripts/{build_index,query,generate_eval,browse_gen_eval}.py
 tests/test_*.py
-eval/qa.jsonl
+eval/{qa,gen_qa}.jsonl  # retrieval + generation eval sety
+eval/{gen_results.jsonl,gen_results.md}  # výstup run_gen_eval
 artifacts/{chunks.jsonl,.lance/}
 data/corpus/*.tex  # existing, neupravovať
 app.py  # thin wrapper -> src/app/streamlit_app.py

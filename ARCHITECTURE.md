@@ -168,12 +168,14 @@ System prompt:
 
 | Komponent | Stratégia |
 |---|---|
-| Eval set | 50 párov v `eval/qa.jsonl`, E3 hybrid: Gemini generuje per-chunk → ručne prefiltrované + 10 interakčných + 5 refusal |
-| Retrieval metriky | Recall@1, Recall@3, Recall@5, MRR |
-| **Ablation** | dense-only vs sparse-only vs hybrid — tabuľka v README |
-| Generation eval | Ručná (cca 20 odpovedí) |
+| Retrieval eval set | `eval/qa.jsonl` — ručne kurátovaný; retrieval metriky: Recall@1, Recall@3, Recall@5, MRR, Refusal Acc |
+| **Ablation** | dense-only vs sparse-only vs hybrid — `python -m src.eval.run_eval --variant all`, výstup do `eval/results.md` |
+| Generation eval set | `eval/gen_qa.jsonl` — generovaný cez `scripts/generate_eval.py` (OpenAI `gpt-4o-mini`) + ručná kuratúra |
+| Generation eval | Automatická: `src/eval/run_gen_eval.py` + LLM-as-judge (`gpt-4o-mini`); metriky: faithfulness, correctness, cites_sources, in_slovak, Gold@sel; výstup do `eval/gen_results.jsonl` + `eval/gen_results.md` |
+| Pydantic schémy | `src/schemas.py`: `GenQARow`, `ToolCallLog`, `EvalResult`, `JudgeScores`, `JudgeRefusalScores` |
+| Viewer | `scripts/browse_gen_eval.py` — Streamlit viewer pre `eval/gen_results.jsonl` |
 | Tooling | Custom Python v `src/eval/` (no ragas) |
-| Beh | Lokálne počas vývoja, výstup do README |
+| Beh | Lokálne počas vývoja, výstup do `eval/*.md` |
 
 ---
 
@@ -183,6 +185,7 @@ System prompt:
 BangRag/
 ├── data/corpus/                    # .tex súbory (existing)
 ├── src/
+│   ├── schemas.py                  # zdieľané Pydantic schémy (EvalResult, GenQARow, ToolCallLog, ...)
 │   ├── ingestion/
 │   │   ├── IParser.py
 │   │   ├── latex_parser.py
@@ -193,27 +196,36 @@ BangRag/
 │   │   ├── lancedb_store.py
 │   │   └── slovak_text.py          # lemma + diacritics utils
 │   ├── generation/
-│   │   ├── agent.py            # BangAgent — tool-calling loop
-│   │   ├── openai_client.py    # OpenAI streaming client
+│   │   ├── agent.py                # BangAgent — tool-calling loop
+│   │   ├── openai_client.py        # OpenAI streaming client
 │   │   └── prompts.py
 │   ├── eval/
-│   │   ├── run_eval.py
+│   │   ├── run_eval.py             # retrieval ablation (dense/sparse/hybrid)
+│   │   ├── run_gen_eval.py         # agentic generation eval + LLM-as-judge
 │   │   └── metrics.py
 │   └── app/
 │       └── streamlit_app.py
 ├── eval/
-│   └── qa.jsonl
+│   ├── qa.jsonl                    # retrieval eval set (ručne kurátovaný)
+│   ├── gen_qa.jsonl                # generation eval set
+│   ├── gen_results.jsonl           # výstup run_gen_eval (EvalResult per riadok)
+│   └── gen_results.md              # sumarizačná tabuľka (judge metriky)
 ├── artifacts/
-│   └── .lance/                     # commitnutý LanceDB index
+│   ├── chunks.jsonl                # ingested chunks (intermediate)
+│   └── .lance/                     # LanceDB index (v .gitignore, rebuilduje sa automaticky)
 ├── config/
-│   ├── agent.toml                  # konfigurovateľné konštanty agenta
+│   ├── agent.toml                  # konfigurovateľné konštanty agenta (model_id, max_iterations, ...)
 │   └── agent_prompt.md             # system prompt agenta (verzionovaný)
 ├── scripts/
-│   └── build_index.py              # CLI rebuild
+│   ├── build_index.py              # CLI rebuild indexu
+│   ├── generate_eval.py            # generuje eval/qa_draft.jsonl cez OpenAI gpt-4o-mini
+│   ├── query.py                    # manuálne testovanie retrieval z CLI
+│   └── browse_gen_eval.py          # Streamlit viewer pre eval/gen_results.jsonl
 ├── tests/
-│   ├── test_latex_parser.py        # 8-10 testov
-│   ├── test_slovak_text.py         # 3-4 testy
-│   └── test_smoke.py               # e2e
+│   ├── test_latex_parser.py
+│   ├── test_slovak_text.py
+│   ├── test_lancedb_store.py
+│   └── test_run_gen_eval.py
 ├── .github/workflows/
 │   └── deploy_hf.yml
 ├── app.py                          # thin wrapper → src/app/streamlit_app.py
@@ -229,7 +241,7 @@ BangRag/
 ### Infraštruktúra
 - **GitHub repo** (verejný, portfolio)
 - **HF Space** (Streamlit SDK, free tier 16 GB RAM)
-- **Gemini API** (free tier, kľúč v HF Space secrets)
+- **OpenAI API** (`gpt-4.1-mini`, kľúč v HF Space secrets)
 
 ### Workflow
 1. Vývoj na lokálnom branchi
