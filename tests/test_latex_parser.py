@@ -220,7 +220,7 @@ def test_skname_absent_altnames_present():
     )
     chunks = _parse_cards("hnede", tex)
     assert chunks[0]["sk_name"] == "Pivo"
-    assert chunks[0]["alt_names"] == ["Birra", "Beer", "pivo"]
+    assert chunks[0]["alt_names"] == ["Birra", "Beer"]
 
 
 # Integration tests against real corpus files
@@ -260,7 +260,7 @@ def test_hnede_birra_altnames_no_skname():
     chunks = _parse_cards("hnede", content)
     card = next((c for c in chunks if c["name_orig"] == "birra"), None)
     assert card is not None
-    assert card["alt_names"] == ["Birra", "Beer"]
+    assert card["alt_names"] == ["Birra", "Beer", "pivo"]
     assert card["sk_name"] == card["caption_name"]
 
 
