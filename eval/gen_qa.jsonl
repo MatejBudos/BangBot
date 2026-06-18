@@ -5,7 +5,7 @@
 
 {"id": "gq02", "question": "Ake sú pravidlá šachu", "gold_answer": "Refusal answer", "gold_chunk_ids": [""], "category": "refusal", "expected_refusal": true}
 {"id": "gq03", "question": "Čo robí karta Internetový Bandita", "gold_answer": "Refusal answer", "gold_chunk_ids": [""], "category": "refusal", "expected_refusal": true}
-{"id": "gq004", "question": "Čo sa stane ked Belle star vystreli bang na bart cassidy a on ma pred sebou barel a nema vedle", "gold_answer": "Bart Casidy stratí život pretože proti Belle Star nemôže použiť Barel, a pokial zásah prežije, potiahne si kartu z balíka kvôli schopnosti.", "gold_chunk_ids": ["card_modra_barile", "card_postava_bellestar","card_postava_bartcassidy", "card_hneda_bang", "card_hned_vedle"], "category": "interaction", "expected_refusal": false}
+{"id": "gq004", "question": "Čo sa stane ked Belle star vystreli bang na bart cassidy a on ma pred sebou barel a nema vedle", "gold_answer": "Bart Casidy nemôže využiť schopnosť barela pretože mu to schopnosť Belle Star **Nedovoľuje**. Bart stratí život a ak zásah prežije potiahne si kartu z balíka kvôli jeho schopnosti.", "gold_chunk_ids": ["card_modra_barile", "card_postava_bellestar","card_postava_bartcassidy", "card_hneda_bang", "card_hned_vedle"], "category": "interaction", "expected_refusal": false}
 {"id": "gq005", "question": "Môžem použiť kartu Posledné Pivo na záchranu pred smrťou do pri karte Pivo?", "gold_answer": "Nie", "gold_chunk_ids": ["card_hneda_birra", "card_hneda_ultimogiro"], "category": "interaction", "expected_refusal": false}
 {"id": "gq006", "question": "Môžem použiť kartu Čutora kde sú v hre iba 2ja kráči?", "gold_answer": "Áno", "gold_chunk_ids": ["card_zelena_borraccia"], "category": "interaction", "expected_refusal": false}
 
@@ -19,6 +19,17 @@
 
 
 
+
 {"id": "gq011", "question": "Aký je efekt karty Pony express?", "gold_answer": "Hráč si potiahne 3 karty.", "gold_chunk_ids": ["card_zelena_ponyexpress"], "category": "lookup", "expected_refusal": false}
 
 {"id": "gq012", "question": "Aký efekt má karta Hřbitov na vyradených hráčov na začiatku ťahu?", "gold_answer": "Všetci vyradení hráči sa na trvalo vracaju do hry s 1 životom. Role sa medzi týchto hráčov zamiešajú.", "gold_chunk_ids": ["card_wildwest_camposanto"], "category": "lookup", "expected_refusal": false}
+
+{"id": "gq013", "question": "Ako sa volá karta ktorá zakazuje všetkým hráčom použiť kartu bangu na jedno kolo?", "gold_answer": "Sermone- Kazateľ", "gold_chunk_ids": ["card_highnoon_sermone"], "category": "paraphrase", "expected_refusal": false}
+
+
+{"id": "gq014", "question": "Existuje postava ktorá umožnuje mať vo fáze 3 na ruke viac kariet ako životov?", "gold_answer": "Sean Mallory", "gold_chunk_ids": ["card_postava_seanmallory"], "category": "paraphrase", "expected_refusal": false}
+
+{"id": "gq015", "question": "Ak zabijem banditu pomocou gulometu dostanem za neho odmenu 3 karty??", "gold_answer": "Áno", "gold_chunk_ids": [], "category": "interaction", "expected_refusal": false}
+
+
+

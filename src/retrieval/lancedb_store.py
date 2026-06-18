@@ -121,7 +121,7 @@ class HybridRetriever:
                 d["_rrf_score"] = 0.0
                 d["_dense_score"] = 0.0
                 results.append(d)
-            return results
+            return _exact_name_first(results, query)
 
         # hybrid (default)
         if query_lemmatized:

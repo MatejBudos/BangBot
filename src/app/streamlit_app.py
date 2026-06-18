@@ -285,8 +285,8 @@ def main() -> None:
                 agent_steps = len(agent.tool_calls_log)
                 for step in agent.tool_calls_log:
                     status.write(
-                        f"Hľadám: \"{step['query']}\" "
-                        f"[{step['variant']}] → {step['n_new']} nových výsledkov"
+                        f"Hľadám: \"{step.query}\" "
+                        f"[{step.variant}] → {step.n_new} nových výsledkov"
                     )
                 status.update(label="Hotovo.", state="complete")
             st.write_stream(client.stream_answer(query.strip(), chunks))
