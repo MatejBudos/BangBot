@@ -29,7 +29,7 @@
 
 {"id": "gq014", "question": "Existuje postava ktorá umožnuje mať vo fáze 3 na ruke viac kariet ako životov?", "gold_answer": "Sean Mallory", "gold_chunk_ids": ["card_postava_seanmallory"], "category": "paraphrase", "expected_refusal": false}
 
-{"id": "gq015", "question": "Ak zabijem banditu pomocou gulometu dostanem za neho odmenu 3 karty??", "gold_answer": "Áno", "gold_chunk_ids": [], "category": "interaction", "expected_refusal": false}
+{"id": "gq015", "question": "Ak zabijem banditu pomocou gulometu dostanem za neho odmenu 3 karty?", "gold_answer": "Áno", "gold_chunk_ids": [], "category": "interaction", "expected_refusal": false}
 
 
 
