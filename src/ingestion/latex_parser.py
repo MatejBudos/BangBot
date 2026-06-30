@@ -30,6 +30,11 @@ def _strip_comments(text: str) -> str:
 
 def _clean_latex(text: str) -> str:
     """Strip common LaTeX markup, preserve Slovak text."""
+    # Mark list structure before general cleanup destroys it
+    text = re.sub(r"\\begin\{(?:itemize|enumerate)\}", "\x01LS\x01", text)
+    text = re.sub(r"\\end\{(?:itemize|enumerate)\}", "\x01LE\x01", text)
+    text = re.sub(r"\\item\b", "\x01BL\x01", text)
+
     # Remove \\textbf{...}, \\textit{...}, \\emph{...} → keep inner text
     text = re.sub(r"\\text(?:bf|it|rm|sf|tt)\{([^}]*)\}", r"\1", text)
     text = re.sub(r"\\emph\{([^}]*)\}", r"\1", text)
@@ -38,11 +43,15 @@ def _clean_latex(text: str) -> str:
     text = re.sub(r"\\[a-zA-Z]+\*?\s*", "", text)
     # Remove leftover braces
     text = re.sub(r"[{}]", "", text)
-    # Collapse whitespace
+    # Collapse whitespace (markers survive because they contain no whitespace)
     text = re.sub(r"\s+", " ", text).strip()
     text = re.sub(r"\\\\", "\n", text)
-    
-    return text
+
+    # Restore list formatting
+    text = re.sub(r"\s*\x01LS\x01\s*", "", text)
+    text = re.sub(r"\s*\x01BL\x01\s*", "\n- ", text)
+    text = re.sub(r"\s*\x01LE\x01\s*", "\n", text)
+    return text.strip()
 
 
 def _name_orig_from_path(image_path: str) -> str:

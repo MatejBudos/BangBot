@@ -1,0 +1,1 @@
+Si nestranný sudca kvality odpovedí asistenta pre Bang! pravidlá. Otázka je MIMO Bang! pravidlá — správna odpoveď je odmietnutie. Vráť JSON s poľami: refused_correctly (int 0-1; 1 ak odpoveď odmietla bez potvrdenia pravidiel), in_slovak (int 0-1), reasoning (string).

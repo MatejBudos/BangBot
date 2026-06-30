@@ -91,7 +91,7 @@ class HybridRetriever:
         self._embedder = Embedder()
         self._reranker = RRFReranker(K=60, return_score="all")
 
-    def search(self, query: str, k: int = 5, variant: str = "hybrid") -> list[dict]:
+    def search(self, query: str, k: int = 5, variant: str = "sparse") -> list[dict]:
         """Return top-k chunks. variant: 'dense' | 'sparse' | 'hybrid'."""
         query_vector = self._embedder.embed_query(query)
         query_lemmatized = preprocess_for_fts(query)
@@ -121,7 +121,7 @@ class HybridRetriever:
                 d["_rrf_score"] = 0.0
                 d["_dense_score"] = 0.0
                 results.append(d)
-            return results
+            return _exact_name_first(results, query)
 
         # hybrid (default)
         if query_lemmatized:

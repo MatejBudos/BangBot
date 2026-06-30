@@ -26,3 +26,6 @@ Thumbs.db
 
 # Claude
 .claude/
+
+# Eval run data (full results stay local; _index.toml is committed)
+eval/runs/20*/
