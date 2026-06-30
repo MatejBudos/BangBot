@@ -13,7 +13,7 @@
 
 {"id": "gq008", "question": "Keď má hráč pred sebou dynamit, chrestyš a väzenie v akom poradí si ťahá na tieto efekty", "gold_answer": "Dynamit -> Vazenie -> ak sa dostane z vazenia, Chrestýš", "gold_chunk_ids": ["card_modra_serpenteasonagli", "card_modra_dinamite", "card_modra_prigione"], "category": "interaction", "expected_refusal": false}
 
-{"id": "gq009", "question": "Akými kartami si môžem zvýšiť dosah dostrelu?", "gold_answer": "Modré karty ako zbrane alebo kone.", "gold_chunk_ids": [], "category": "paraphrase", "expected_refusal": false}
+{"id": "gq009", "question": "Akými kartami si môžem zvýšiť dosah?", "gold_answer": "Modré karty ako zbrane alebo kone.", "gold_chunk_ids": [], "category": "paraphrase", "expected_refusal": false}
 
 {"id": "gq010", "question": "Existuje postava ktorá môže vyliečiť jedným pivom 2 životy?", "gold_answer": "Tequila Joe", "gold_chunk_ids": ["card_postava_tequilajoe"], "category": "paraphrase", "expected_refusal": false}
 
