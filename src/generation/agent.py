@@ -23,7 +23,7 @@ _MAX_ITERATIONS: int = _cfg["max_iterations"]
 _MAX_K_PER_CALL: int = _cfg["max_k_per_call"]
 _MAX_TOTAL_CHUNKS: int = _cfg["max_total_chunks"]
 
-_AGENT_SYSTEM_PROMPT: str = (_CONFIG_DIR / "agent_prompt.md").read_text(encoding="utf-8").strip()
+_AGENT_SYSTEM_PROMPT: str = (_CONFIG_DIR / "prompts" / "agent.md").read_text(encoding="utf-8").strip()
 
 _SELECT_TOOL: dict[str, Any] = {
     "type": "function",

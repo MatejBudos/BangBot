@@ -7,45 +7,112 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import random
 import time
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 
 from openai import OpenAI
 
-from src.generation.agent import BangAgent
+from src.eval.metrics import run_score
+from src.generation.agent import (
+    _AGENT_SYSTEM_PROMPT,
+    _MAX_ITERATIONS,
+    _MAX_K_PER_CALL,
+    _MAX_TOTAL_CHUNKS,
+    _MODEL_ID as _AGENT_MODEL_ID,
+)
 from src.generation.openai_client import LLMUnavailable, OpenAIClient
-from src.generation.prompts import format_context
+from src.generation.openai_client import _MODEL_ID as _GEN_MODEL_ID
+from src.generation.prompts import SYSTEM_PROMPT, format_context
 from src.retrieval.lancedb_store import HybridRetriever
 from src.schemas import (
     EvalResult,
     GenQARow,
     JudgeRefusalScores,
     JudgeScores,
+    RunConfig,
     ToolCallLog,
 )
 
+from src.generation.agent import BangAgent
+
 _GEN_QA_PATH = Path("eval/gen_qa.jsonl")
 _DB_PATH = "artifacts/.lance"
-_RESULTS_JSONL = Path("eval/gen_results.jsonl")
-_RESULTS_MD = Path("eval/gen_results.md")
+_RUNS_DIR = Path("eval/runs")
 
-_JUDGE_SYSTEM = (
-    "Si nestranný sudca kvality odpovedí asistenta pre Bang! pravidlá. "
-    "Hodnoť VÝLUČNE na základe dodaných chunkov — nie vlastných znalostí. "
-    "Vráť JSON s poľami: faithfulness (int 0-2), correctness (int 0-2), "
-    "cites_sources (int 0-1), in_slovak (int 0-1), reasoning (string)."
-)
+_JUDGE_MODEL = "gpt-4o-mini"
 
-_JUDGE_SYSTEM_REFUSAL = (
-    "Si nestranný sudca kvality odpovedí asistenta pre Bang! pravidlá. "
-    "Otázka je MIMO Bang! pravidlá — správna odpoveď je odmietnutie. "
-    "Vráť JSON s poľami: refused_correctly (int 0-1; 1 ak odpoveď odmietla bez "
-    "potvrdenia pravidiel), in_slovak (int 0-1), reasoning (string)."
-)
+_PROMPTS_DIR = Path(__file__).parent.parent.parent / "config" / "prompts"
+_JUDGE_SYSTEM: str = (_PROMPTS_DIR / "judge.md").read_text(encoding="utf-8").strip()
+_JUDGE_SYSTEM_REFUSAL: str = (_PROMPTS_DIR / "judge_refusal.md").read_text(encoding="utf-8").strip()
+
+
+def _md5(text: str) -> str:
+    return hashlib.md5(text.encode()).hexdigest()[:8]
+
+
+def _render_toml(cfg: RunConfig) -> str:
+    lines = [
+        f'timestamp = "{cfg.timestamp}"',
+        f'agent_model = "{cfg.agent_model}"',
+        f'gen_model = "{cfg.gen_model}"',
+        f'judge_model = "{cfg.judge_model}"',
+        f'agent_prompt_md5 = "{cfg.agent_prompt_md5}"',
+        f'gen_prompt_md5 = "{cfg.gen_prompt_md5}"',
+        f'judge_prompt_md5 = "{cfg.judge_prompt_md5}"',
+        "",
+        "[agent]",
+        f"max_iterations = {cfg.agent_max_iterations}",
+        f"max_k_per_call = {cfg.agent_max_k_per_call}",
+        f"max_total_chunks = {cfg.agent_max_total_chunks}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _append_index(run_dir: Path, cfg: RunConfig, score: float, results: list[EvalResult]) -> None:
+    index_path = _RUNS_DIR / "_index.toml"
+    non_refusal = [r for r in results if r.category != "refusal"]
+
+    faith_avg = _avg([
+        r.judge_scores.faithfulness if isinstance(r.judge_scores, JudgeScores) else 0
+        for r in non_refusal
+    ])
+    correct_avg = _avg([
+        r.judge_scores.correctness if isinstance(r.judge_scores, JudgeScores) else 0
+        for r in non_refusal
+    ])
+    cites_pct = _avg([
+        r.judge_scores.cites_sources if isinstance(r.judge_scores, JudgeScores) else 0
+        for r in non_refusal
+    ]) * 100
+    gold_pct = _avg([1.0 if r.gold_retrieved else 0.0 for r in non_refusal]) * 100
+
+    entry = "\n".join([
+        "[[runs]]",
+        f'timestamp = "{cfg.timestamp}"',
+        f'dir = "{run_dir.name}"',
+        f"run_score = {score:.1f}",
+        f"n_cases = {len(results)}",
+        f'agent_model = "{cfg.agent_model}"',
+        f'gen_model = "{cfg.gen_model}"',
+        f'agent_prompt_md5 = "{cfg.agent_prompt_md5}"',
+        f'gen_prompt_md5 = "{cfg.gen_prompt_md5}"',
+        f"faithfulness_avg = {faith_avg:.2f}",
+        f"correctness_avg = {correct_avg:.2f}",
+        f"cites_sources_pct = {cites_pct:.1f}",
+        f"gold_retrieved_pct = {gold_pct:.1f}",
+    ]) + "\n"
+
+    need_separator = index_path.exists() and index_path.stat().st_size > 0
+    with open(index_path, "a", encoding="utf-8") as f:
+        if need_separator:
+            f.write("\n")
+        f.write(entry)
 
 
 def _load_qa(path: Path) -> list[GenQARow]:
@@ -83,7 +150,7 @@ def _judge(
         )
         schema = JudgeScores
     response = client.beta.chat.completions.parse(
-        model="gpt-4o-mini",
+        model=_JUDGE_MODEL,
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": user},
@@ -257,15 +324,36 @@ def main() -> None:
     n_refusal = sum(1 for r in rows if r.expected_refusal)
     print(f"Loaded {len(rows)} gen eval rows ({len(rows) - n_refusal} generation, {n_refusal} refusal)")
 
+    # Build run directory and config snapshot
+    ts = datetime.now()
+    run_dir = _RUNS_DIR / f"{ts.strftime('%Y%m%d_%H%M%S')}_{_AGENT_MODEL_ID}"
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    run_config = RunConfig(
+        timestamp=ts.isoformat(timespec="seconds"),
+        agent_model=_AGENT_MODEL_ID,
+        gen_model=_GEN_MODEL_ID,
+        judge_model=_JUDGE_MODEL,
+        agent_prompt_md5=_md5(_AGENT_SYSTEM_PROMPT),
+        gen_prompt_md5=_md5(SYSTEM_PROMPT),
+        judge_prompt_md5=_md5(_JUDGE_SYSTEM),
+        agent_max_iterations=_MAX_ITERATIONS,
+        agent_max_k_per_call=_MAX_K_PER_CALL,
+        agent_max_total_chunks=_MAX_TOTAL_CHUNKS,
+    )
+    (run_dir / "config.toml").write_text(_render_toml(run_config), encoding="utf-8")
+    print(f"Run dir: {run_dir}")
+
     retriever = HybridRetriever(args.db)
     agent = BangAgent(retriever)
     gen_client = OpenAIClient()
     judge_client = OpenAI(api_key=os.environ.get("OPENAI_KEY"))
 
     results: list[EvalResult] = []
-    _RESULTS_JSONL.parent.mkdir(parents=True, exist_ok=True)
+    results_jsonl = run_dir / "gen_results.jsonl"
+    results_md = run_dir / "gen_results.md"
 
-    with open(_RESULTS_JSONL, "w", encoding="utf-8") as out_f:
+    with open(results_jsonl, "w", encoding="utf-8") as out_f:
         for i, row in enumerate(rows, 1):
             print(f"[{i}/{len(rows)}] {row.id} ({row.category})...", flush=True)
             result = _eval_case(row, agent, gen_client, judge_client)
@@ -297,18 +385,25 @@ def main() -> None:
     for r in results:
         by_category[r.category].append(r)
 
+    score = run_score(results) * 100
+    print(f"\nRunScore: {score:.1f} / 100")
+
     table = _format_table(by_category, results)
     print("\n" + table + "\n")
 
-    _RESULTS_MD.parent.mkdir(parents=True, exist_ok=True)
-    with open(_RESULTS_MD, "w", encoding="utf-8") as f:
+    with open(results_md, "w", encoding="utf-8") as f:
         f.write("# Generation eval results (LLM-as-judge)\n\n")
+        f.write(f"**RunScore: {score:.1f} / 100**\n\n")
         f.write(table + "\n\n")
         f.write(
             f"_Eval set: {len(results)} prípadov. "
-            "Judge: gpt-4o-mini (same-model bias — interpretuj konzervatívne)._\n"
+            f"Agent: {run_config.agent_model} | Gen: {run_config.gen_model} | "
+            f"Judge: {run_config.judge_model} (same-model bias — interpretuj konzervatívne)._\n"
         )
-    print(f"Saved {_RESULTS_JSONL} + {_RESULTS_MD}")
+
+    _append_index(run_dir, run_config, score, results)
+    print(f"Saved {results_jsonl} + {results_md}")
+    print(f"Index updated: {_RUNS_DIR / '_index.toml'}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,27 @@
+[[runs]]
+timestamp = "2026-06-30T18:14:03"
+dir = "20260630_181403_gpt-4.1-mini"
+run_score = 77.5
+n_cases = 15
+agent_model = "gpt-4.1-mini"
+gen_model = "gpt-4o-mini"
+agent_prompt_md5 = "33cb2465"
+gen_prompt_md5 = "f4810753"
+faithfulness_avg = 1.38
+correctness_avg = 1.31
+cites_sources_pct = 61.5
+gold_retrieved_pct = 76.9
+
+[[runs]]
+timestamp = "2026-06-30T18:28:06"
+dir = "20260630_182806_gpt-4.1-mini"
+run_score = 85.0
+n_cases = 15
+agent_model = "gpt-4.1-mini"
+gen_model = "gpt-4o-mini"
+agent_prompt_md5 = "6c682b83"
+gen_prompt_md5 = "037edae6"
+faithfulness_avg = 1.62
+correctness_avg = 1.62
+cites_sources_pct = 69.2
+gold_retrieved_pct = 76.9

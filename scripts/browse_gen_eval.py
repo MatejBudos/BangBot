@@ -1,4 +1,4 @@
-"""Streamlit viewer pre eval/gen_results.jsonl.
+"""Streamlit viewer pre eval/runs/*/gen_results.jsonl.
 
 Spustenie:
     streamlit run scripts/browse_gen_eval.py
@@ -7,21 +7,33 @@ from __future__ import annotations
 
 import json
 import sys
+import tomllib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import streamlit as st
 
+from src.eval.metrics import run_score
 from src.schemas import EvalResult, JudgeRefusalScores, JudgeScores
 
-_RESULTS_PATH = Path("eval/gen_results.jsonl")
+_RUNS_DIR = Path("eval/runs")
 
 st.set_page_config(page_title="BangRag Gen Eval", layout="wide")
 
 
+def _get_run_dirs() -> list[Path]:
+    if not _RUNS_DIR.exists():
+        return []
+    dirs = sorted(
+        [d for d in _RUNS_DIR.iterdir() if d.is_dir() and d.name[0].isdigit()],
+        reverse=True,
+    )
+    return [d for d in dirs if (d / "gen_results.jsonl").exists()]
+
+
 @st.cache_data
-def load_results(path: Path) -> list[EvalResult]:
+def load_results(path: str) -> list[EvalResult]:
     rows = []
     with open(path, encoding="utf-8-sig") as f:
         for line in f:
@@ -29,6 +41,12 @@ def load_results(path: Path) -> list[EvalResult]:
             if line:
                 rows.append(EvalResult.model_validate(json.loads(line)))
     return rows
+
+
+@st.cache_data
+def load_config(path: str) -> dict:
+    with open(path, "rb") as f:
+        return tomllib.load(f)
 
 
 def _score_color(score: int, max_score: int) -> str:
@@ -50,20 +68,34 @@ def _bool_md(label: str, value: int) -> str:
     return f"**{label}:** {icon}"
 
 
-# ── Load data ──────────────────────────────────────────────────────────────────
+# ── Run selector ───────────────────────────────────────────────────────────────
 
-if not _RESULTS_PATH.exists():
-    st.error(f"Súbor {_RESULTS_PATH} neexistuje. Spusti `python -m src.eval.run_gen_eval` najprv.")
-    st.stop()
-
-all_rows = load_results(_RESULTS_PATH)
-
-# ── Sidebar ────────────────────────────────────────────────────────────────────
+run_dirs = _get_run_dirs()
 
 with st.sidebar:
     st.title("BangRag Gen Eval")
-    st.caption(str(_RESULTS_PATH))
 
+    if not run_dirs:
+        st.error("Žiadne runy v eval/runs/. Spusti `python -m src.eval.run_gen_eval` najprv.")
+        st.stop()
+
+    sel_run = st.selectbox("Run", run_dirs, format_func=lambda p: p.name)
+
+    config_path = sel_run / "config.toml"
+    if config_path.exists():
+        cfg = load_config(str(config_path))
+        with st.expander("Konfigurácia"):
+            st.code(config_path.read_text(encoding="utf-8"), language="toml")
+
+    st.divider()
+
+# ── Load data ──────────────────────────────────────────────────────────────────
+
+all_rows = load_results(str(sel_run / "gen_results.jsonl"))
+
+# ── Sidebar metrics ────────────────────────────────────────────────────────────
+
+with st.sidebar:
     all_cats = sorted({r.category for r in all_rows})
     sel_cats = st.multiselect("Kategória", all_cats, default=all_cats)
 
@@ -72,6 +104,8 @@ with st.sidebar:
     st.divider()
 
     non_refusal = [r for r in all_rows if r.category != "refusal"]
+    score = run_score(all_rows) * 100
+    st.metric("RunScore", f"{score:.1f} / 100")
     if non_refusal:
         avg_faith = sum(
             r.judge_scores.faithfulness if isinstance(r.judge_scores, JudgeScores) else 0

@@ -42,7 +42,7 @@ class ToolCallLog(BaseModel):
 
 
 class EvalResult(BaseModel):
-    """One completed eval case written to eval/gen_results.jsonl."""
+    """One completed eval case written to gen_results.jsonl."""
     id: str
     category: str
     question: str
@@ -57,3 +57,17 @@ class EvalResult(BaseModel):
     n_selected_chunks: int
     tool_token_count: int | None
     gen_latency_ms: int
+
+
+class RunConfig(BaseModel):
+    """Snapshot of the configuration used for one eval run."""
+    timestamp: str
+    agent_model: str
+    gen_model: str
+    judge_model: str
+    agent_prompt_md5: str
+    gen_prompt_md5: str
+    judge_prompt_md5: str
+    agent_max_iterations: int
+    agent_max_k_per_call: int
+    agent_max_total_chunks: int
