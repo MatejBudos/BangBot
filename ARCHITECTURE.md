@@ -93,6 +93,7 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 - LanceDB built-in **RRF reranker** (k=60, `return_score="all"`)
 - **Interný limit `k*3` (min 15)** pred slice na top-k: LanceDB hybrid search berie kandidátov z oboch vetiev pred rerankom; s malým limitom vypadnú rule sekcie (slabé v dense) skôr, ako sa dostanú do RRF. Zvýšený interný limit to opravuje.
 - LanceDB 0.22 API: `search(query_type="hybrid").vector(...).text(...)` — text sa **nesmie** pasovať priamo do `search()`, inak spadne s `ValueError`.
+- **Exact-name-first reranking** (`_exact_name_first()`): po FTS/hybrid vyhľadávaní sa chunky, ktorých `name_sk`/`sk_name`/`name_orig`/`alt_names` zodpovedá celej query alebo jej tokenu, presunú na vrchol výsledkov. Opravuje prípady kde karta "Pivo" padá za čanky, ktoré len *spomínajú* slovo "pivo" v tele textu.
 - Žiadny cross-encoder reranker vo v1
 
 ### Storage
@@ -107,6 +108,8 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 |---|---|
 | Provider | **OpenAI gpt-4.1-mini** (`OPENAI_KEY` env var) |
 | Agentic retrieval | `BangAgent` — tool-calling loop (max 10 iterácií), nástroje: `search_rules` + `select_chunks` |
+| Konfigurácia agenta | `config/agent.toml` — `model_id`, `max_iterations`, `max_k_per_call`, `max_total_chunks` |
+| System prompty | `config/prompts/agent.md` (agent loop), `config/prompts/gen.md` (finálna odpoveď) |
 | Streaming | Áno (`st.write_stream`) pre finálnu odpoveď; tool-calling loop je non-streaming |
 | Fallback | Pri nedostupnosti API → zobraz iba retrieved chunky (hybrid k=5) |
 | Jazyk odpovede | Vždy slovenčina |
@@ -171,11 +174,14 @@ System prompt:
 | Retrieval eval set | `eval/qa.jsonl` — ručne kurátovaný; retrieval metriky: Recall@1, Recall@3, Recall@5, MRR, Refusal Acc |
 | **Ablation** | dense-only vs sparse-only vs hybrid — `python -m src.eval.run_eval --variant all`, výstup do `eval/results.md` |
 | Generation eval set | `eval/gen_qa.jsonl` — generovaný cez `scripts/generate_eval.py` (OpenAI `gpt-4o-mini`) + ručná kuratúra |
-| Generation eval | Automatická: `src/eval/run_gen_eval.py` + LLM-as-judge (`gpt-4o-mini`); metriky: faithfulness, correctness, cites_sources, in_slovak, Gold@sel; výstup do `eval/gen_results.jsonl` + `eval/gen_results.md` |
-| Pydantic schémy | `src/schemas.py`: `GenQARow`, `ToolCallLog`, `EvalResult`, `JudgeScores`, `JudgeRefusalScores` |
-| Viewer | `scripts/browse_gen_eval.py` — Streamlit viewer pre `eval/gen_results.jsonl` |
+| Generation eval | Automatická: `src/eval/run_gen_eval.py` + LLM-as-judge (`gpt-4o-mini`); metriky: faithfulness, correctness, cites_sources, in_slovak, Gold@sel; výstup do `eval/runs/<timestamp>_<model>/` (pozri nižšie) |
+| Run tracking | Každý beh vytvára `eval/runs/<timestamp>_<model>/config.toml` + `gen_results.jsonl` + `gen_results.md`; súhrnný index v `eval/runs/_index.toml` |
+| **RunScore** | `metrics.run_score()` — mean `case_score` cez všetky výsledky, normalizovaný [0,1]; zobrazený v CLI aj viewer |
+| Pydantic schémy | `src/schemas.py`: `GenQARow`, `ToolCallLog`, `EvalResult`, `JudgeScores`, `JudgeRefusalScores`, `RunConfig` |
+| Judge prompty | `config/prompts/judge.md` (non-refusal) + `config/prompts/judge_refusal.md` (refusal cases) |
+| Viewer | `scripts/browse_gen_eval.py` — Streamlit viewer; zobrazuje zoznam runov z `eval/runs/`, metriky per run aj per prípad |
 | Tooling | Custom Python v `src/eval/` (no ragas) |
-| Beh | Lokálne počas vývoja, výstup do `eval/*.md` |
+| Beh | Lokálne počas vývoja, výstup do `eval/runs/` |
 
 ---
 
@@ -208,19 +214,27 @@ BangRag/
 ├── eval/
 │   ├── qa.jsonl                    # retrieval eval set (ručne kurátovaný)
 │   ├── gen_qa.jsonl                # generation eval set
-│   ├── gen_results.jsonl           # výstup run_gen_eval (EvalResult per riadok)
-│   └── gen_results.md              # sumarizačná tabuľka (judge metriky)
+│   └── runs/
+│       ├── _index.toml             # súhrnný index všetkých runov (RunScore, metriky)
+│       └── <timestamp>_<model>/    # per-run adresár
+│           ├── config.toml         # snapshot RunConfig (model IDs, prompt MD5, parametre)
+│           ├── gen_results.jsonl   # výstup run_gen_eval (EvalResult per riadok)
+│           └── gen_results.md      # sumarizačná tabuľka (judge metriky)
 ├── artifacts/
 │   ├── chunks.jsonl                # ingested chunks (intermediate)
 │   └── .lance/                     # LanceDB index (v .gitignore, rebuilduje sa automaticky)
 ├── config/
 │   ├── agent.toml                  # konfigurovateľné konštanty agenta (model_id, max_iterations, ...)
-│   └── agent_prompt.md             # system prompt agenta (verzionovaný)
+│   └── prompts/
+│       ├── agent.md                # system prompt agenta (tool-calling loop)
+│       ├── gen.md                  # system prompt pre finálnu generáciu odpovede
+│       ├── judge.md                # judge prompt (non-refusal cases)
+│       └── judge_refusal.md        # judge prompt (expected-refusal cases)
 ├── scripts/
 │   ├── build_index.py              # CLI rebuild indexu
 │   ├── generate_eval.py            # generuje eval/qa_draft.jsonl cez OpenAI gpt-4o-mini
 │   ├── query.py                    # manuálne testovanie retrieval z CLI
-│   └── browse_gen_eval.py          # Streamlit viewer pre eval/gen_results.jsonl
+│   └── browse_gen_eval.py          # Streamlit viewer pre eval/runs/*/gen_results.jsonl
 ├── tests/
 │   ├── test_latex_parser.py
 │   ├── test_slovak_text.py
