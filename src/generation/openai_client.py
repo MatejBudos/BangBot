@@ -3,13 +3,19 @@ from __future__ import annotations
 
 import os
 import time
+import tomllib
+from pathlib import Path
 from typing import Iterator
 
 from openai import APIConnectionError, APIStatusError, OpenAI, RateLimitError
 
 from src.generation.prompts import SYSTEM_PROMPT, format_context
 
-_MODEL_ID = "gpt-4o-mini"
+_CONFIG_DIR = Path(__file__).parent.parent.parent / "config"
+with (_CONFIG_DIR / "agent.toml").open("rb") as _f:
+    _cfg = tomllib.load(_f)
+
+_MODEL_ID: str = _cfg["gen_model_id"]
 
 
 class LLMUnavailable(Exception):

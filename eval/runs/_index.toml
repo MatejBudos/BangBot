@@ -25,3 +25,31 @@ faithfulness_avg = 1.62
 correctness_avg = 1.62
 cites_sources_pct = 69.2
 gold_retrieved_pct = 76.9
+
+[[runs]]
+timestamp = "2026-06-30T19:09:22"
+dir = "20260630_190922_gpt-5.4-nano"
+run_score = 88.3
+n_cases = 15
+agent_model = "gpt-5.4-nano"
+gen_model = "gpt-5.4-mini"
+agent_prompt_md5 = "6c682b83"
+gen_prompt_md5 = "037edae6"
+faithfulness_avg = 1.62
+correctness_avg = 1.62
+cites_sources_pct = 84.6
+gold_retrieved_pct = 61.5
+
+[[runs]]
+timestamp = "2026-06-30T19:24:09"
+dir = "20260630_192409_gpt-5.4-nano"
+run_score = 86.7
+n_cases = 15
+agent_model = "gpt-5.4-nano"
+gen_model = "gpt-5.4-mini"
+agent_prompt_md5 = "27c2afbd"
+gen_prompt_md5 = "037edae6"
+faithfulness_avg = 1.46
+correctness_avg = 1.46
+cites_sources_pct = 92.3
+gold_retrieved_pct = 76.9

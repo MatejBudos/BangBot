@@ -1,4 +1,8 @@
-model_id        = "gpt-4.1-mini"
-max_iterations  = 10
-max_k_per_call  = 5
+agent_model_id   = "gpt-5.4-nano"
+gen_model_id     = "gpt-5.4-mini"
+judge_model_id   = "gpt-5.4-mini"
+max_iterations   = 10
+max_k_per_call   = 5
 max_total_chunks = 10
+temperature      = 0
+seed             = 42

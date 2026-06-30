@@ -68,6 +68,22 @@ def _bool_md(label: str, value: int) -> str:
     return f"**{label}:** {icon}"
 
 
+def _save_scores(jsonl_path: Path, case_id: str, new_scores: dict) -> None:
+    lines = []
+    with open(jsonl_path, encoding="utf-8-sig") as f:
+        for line in f:
+            stripped = line.strip()
+            if not stripped:
+                lines.append(line)
+                continue
+            obj = json.loads(stripped)
+            if obj["id"] == case_id:
+                obj["judge_scores"] = new_scores
+            lines.append(json.dumps(obj, ensure_ascii=False) + "\n")
+    with open(jsonl_path, "w", encoding="utf-8") as f:
+        f.writelines(lines)
+
+
 # ── Run selector ───────────────────────────────────────────────────────────────
 
 run_dirs = _get_run_dirs()
@@ -171,25 +187,44 @@ st.divider()
 
 st.subheader("Hodnotenie judge")
 
-if isinstance(scores, JudgeRefusalScores):
-    m1, m2 = st.columns(2)
-    with m1:
-        st.markdown(_bool_md("Refused correctly", scores.refused_correctly))
-    with m2:
-        st.markdown(_bool_md("Po slovensky", scores.in_slovak))
-else:
-    m1, m2, m3, m4 = st.columns(4)
-    with m1:
-        st.markdown(_score_md("Faithfulness", scores.faithfulness, 2))
-    with m2:
-        st.markdown(_score_md("Correctness", scores.correctness, 2))
-    with m3:
-        st.markdown(_bool_md("Cites [Z1]", scores.cites_sources))
-    with m4:
-        st.markdown(_bool_md("Po slovensky", scores.in_slovak))
+with st.form("judge_edit"):
+    if isinstance(scores, JudgeRefusalScores):
+        c1, c2 = st.columns(2)
+        with c1:
+            new_refused = int(st.checkbox("Refused correctly", value=bool(scores.refused_correctly)))
+        with c2:
+            new_in_slovak = int(st.checkbox("Po slovensky", value=bool(scores.in_slovak)))
+        new_scores_dict = {
+            "refused_correctly": new_refused,
+            "in_slovak": new_in_slovak,
+            "reasoning": scores.reasoning,
+        }
+    else:
+        c1, c2, c3, c4 = st.columns(4)
+        with c1:
+            new_faith = st.radio("Faithfulness", [0, 1, 2], index=scores.faithfulness, horizontal=True)
+        with c2:
+            new_correct = st.radio("Correctness", [0, 1, 2], index=scores.correctness, horizontal=True)
+        with c3:
+            new_cites = int(st.checkbox("Cites [Z1]", value=bool(scores.cites_sources)))
+        with c4:
+            new_in_slovak = int(st.checkbox("Po slovensky", value=bool(scores.in_slovak)))
+        new_scores_dict = {
+            "faithfulness": new_faith,
+            "correctness": new_correct,
+            "cites_sources": new_cites,
+            "in_slovak": new_in_slovak,
+            "reasoning": scores.reasoning,
+        }
 
-if scores.reasoning:
-    st.info(scores.reasoning)
+    if scores.reasoning:
+        st.info(scores.reasoning)
+
+    if st.form_submit_button("Uložiť hodnotenie"):
+        _save_scores(sel_run / "gen_results.jsonl", selected.id, new_scores_dict)
+        load_results.clear()
+        st.success("Uložené.")
+        st.rerun()
 
 st.divider()
 

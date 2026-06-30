@@ -18,10 +18,12 @@ _CONFIG_DIR = Path(__file__).parent.parent.parent / "config"
 with (_CONFIG_DIR / "agent.toml").open("rb") as _f:
     _cfg = tomllib.load(_f)
 
-_MODEL_ID: str = _cfg["model_id"]
+_MODEL_ID: str = _cfg["agent_model_id"]
 _MAX_ITERATIONS: int = _cfg["max_iterations"]
 _MAX_K_PER_CALL: int = _cfg["max_k_per_call"]
 _MAX_TOTAL_CHUNKS: int = _cfg["max_total_chunks"]
+_TEMPERATURE: float = _cfg["temperature"]
+_SEED: int = _cfg["seed"]
 
 _AGENT_SYSTEM_PROMPT: str = (_CONFIG_DIR / "prompts" / "agent.md").read_text(encoding="utf-8").strip()
 
@@ -31,7 +33,7 @@ _SELECT_TOOL: dict[str, Any] = {
         "name": "select_chunks",
         "description": (
             "POVINNÝ záverečný krok. Vyber relevantné chunks podľa ID — ostatné budú zahodené. "
-            "Zavolaj VŽDY po dokončení všetkých search_rules volaní, pred tým ako odpoviš."
+            "Zavolaj VŽDY po dokončení všetkých search_rules volaní, pred tým ako odpovieš."
         ),
         "parameters": {
             "type": "object",
@@ -121,9 +123,9 @@ class BangAgent:
                     messages=messages,
                     tools=[_SEARCH_TOOL, _SELECT_TOOL],
                     tool_choice="auto",
-                    temperature=0,
+                    temperature=_TEMPERATURE,
                     parallel_tool_calls=False,
-                    seed=42,
+                    seed=_SEED,
                 )
             except (RateLimitError, APIStatusError, APIConnectionError) as exc:
                 raise LLMUnavailable(str(exc)) from exc

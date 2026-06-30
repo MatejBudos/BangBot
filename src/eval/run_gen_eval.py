@@ -12,6 +12,7 @@ import json
 import os
 import random
 import time
+import tomllib
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -45,9 +46,13 @@ _GEN_QA_PATH = Path("eval/gen_qa.jsonl")
 _DB_PATH = "artifacts/.lance"
 _RUNS_DIR = Path("eval/runs")
 
-_JUDGE_MODEL = "gpt-4o-mini"
+_CONFIG_DIR = Path(__file__).parent.parent.parent / "config"
+with (_CONFIG_DIR / "agent.toml").open("rb") as _f:
+    _eval_cfg = tomllib.load(_f)
 
-_PROMPTS_DIR = Path(__file__).parent.parent.parent / "config" / "prompts"
+_JUDGE_MODEL: str = _eval_cfg["judge_model_id"]
+
+_PROMPTS_DIR = _CONFIG_DIR / "prompts"
 _JUDGE_SYSTEM: str = (_PROMPTS_DIR / "judge.md").read_text(encoding="utf-8").strip()
 _JUDGE_SYSTEM_REFUSAL: str = (_PROMPTS_DIR / "judge_refusal.md").read_text(encoding="utf-8").strip()
 
