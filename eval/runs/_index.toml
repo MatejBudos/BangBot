@@ -53,3 +53,17 @@ faithfulness_avg = 1.46
 correctness_avg = 1.46
 cites_sources_pct = 92.3
 gold_retrieved_pct = 76.9
+
+[[runs]]
+timestamp = "2026-06-30T20:05:53"
+dir = "20260630_200553_gpt-5.4-nano"
+run_score = 91.7
+n_cases = 15
+agent_model = "gpt-5.4-nano"
+gen_model = "gpt-5.4-mini"
+agent_prompt_md5 = "27c2afbd"
+gen_prompt_md5 = "367d5229"
+faithfulness_avg = 1.85
+correctness_avg = 1.38
+cites_sources_pct = 100.0
+gold_retrieved_pct = 69.2

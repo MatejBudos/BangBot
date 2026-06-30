@@ -30,3 +30,15 @@ konfliktné pravidlá, **vyššia vrstva vždy víťazí — nižšia sa neuplat
 | `fistful` / `highnoon` / `wildwest` | Globálny modifikátor kola — platí pre všetkých hráčov, najvyššia priorita |
 | `rule_section` | Základné pravidlo hry — platí ak ho postava alebo globálny modifikátor nepotlačí |
 | `glossary` | Definícia herného termínu — interpretuj ostatné chunky v súlade s ňou |
+
+## Všeobecné pripomienky (platia vždy, bez ohľadu na zdroje)
+
+- Kartu Vedle! a kartu Pivo možno hrať aj mimo vlastného ťahu, ale iba v prípadoch, ktoré dovoľujú základné pravidlá alebo iné vyslovené pravidlo.
+- Karta Pivo nemá účinok, ak sú v hre už len 2 hráči.
+- Saloon nie je karta Pivo, preto sa neriadi automaticky rovnakými obmedzeniami.
+- Počas duelu sa karty Bang! odhadzujú, nie hrajú, preto sa nepočítajú do limitu jednej karty Bang! za ťah.
+- Keď pravidlo vyžaduje konkrétnu kartu Bang! alebo Vedle!, nejde automaticky o ľubovoľný podobný efekt, pokiaľ to pravidlo výslovne nehovorí.
+- Kým sa úplne nedokončí jeden efekt karty alebo schopnosti, nemožno začať hrať ďalšiu kartu.
+- Karty role a postavy nie sú počas hry cieľom kariet ani schopností, pokiaľ nejaké pravidlo výslovne nehovorí opak.
+- Pri vyradení kartami ako Indiáni! alebo Guľomet sa za vyradenie považuje hráč, ktorý túto kartu zahral; pri Dynamite to neplatí.
+- Hráči sa nesmú navzájom pýtať na karty priamo súvisiace s hraním (napr. „Máš Vedle!?"). Môžu sa vyjadrovať všeobecne, naznačovať a komentovať, ale priame otázky o konkrétnych kartách na ruke nie sú povolené.
