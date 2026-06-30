@@ -40,7 +40,7 @@ The Bang! rulebook exists as a set of LaTeX documents in Slovak. Players frequen
                                  │
                          selected chunks
                                  │
-                        OpenAI gpt-4.1-mini
+                        OpenAI (model z config/agent.toml)
                                  │
                           streamed answer [Z1][Z2]
 ```
@@ -53,7 +53,7 @@ The Bang! rulebook exists as a set of LaTeX documents in Slovak. Players frequen
 - **LanceDB native hybrid + simplemma** — single dependency for vector + FTS; simplemma handles Slovak morphology (kartami → karta) without a full NLP pipeline
 - **RRF fusion (k=60)** — simple, parameter-free combination of dense and sparse scores; outperforms weighted sum on short queries
 - **Agentic retrieval (BangAgent)** — iterative tool-calling loop: agent decides what to search (sparse/dense/hybrid), reads full chunk text, then explicitly selects relevant chunks via `select_chunks`; better than one-shot retrieval for multi-entity queries
-- **OpenAI gpt-4.1-mini** — reliable tool-calling, low cost; graceful fallback to retrieval-only when quota is exhausted
+- **OpenAI tool-calling** — agent model + gen model konfigurovateľné v `config/agent.toml`; graceful fallback to retrieval-only when quota is exhausted
 - **HF Spaces + Streamlit** — zero-cost hosting, no Docker needed
 
 ---

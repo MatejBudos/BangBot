@@ -27,7 +27,7 @@ Hybrid RAG nad slovenským korpusom pravidiel kartovej hry **Bang!**. Verejné S
 | `postavy.tex` | postavy | per minipage; skip `\begin{comment}` templejt |
 | `fistful.tex`, `highnoon.tex`, `wildwest.tex` | expanzie | per minipage + `\section*{Pravidlá}` → rule_section |
 | `general_rules.tex` | všeobecné pravidlá | per `\section*` → 1 rule_section chunk |
-| `vysvetlivky.tex` | glosár (~1.5 KB) | per riadok tabuľky → 1 glossary chunk / pojem (~9 chunkov) |
+| `vysvetlivky.tex` | glosár (~1.5 KB) | per riadok tabuľky → 1 glossary chunk / pojem (~8 chunkov; Vzdialenosť/Dosah + Dostrel zlúčené do jedného riadku) |
 | `hnede.tex` – sekcia "Dohoda" | cross-cutting pravidlá | samostatný `rule_section` chunk |
 
 **Očakávaný výsledok:** ~80 card chunkov + ~13 rule_section chunkov + ~9 glossary = **~102 chunkov**.
@@ -106,10 +106,11 @@ Soft-link `applies_rules` na Dohoda chunky → **odložené** (Dohoda je samosta
 
 | Aspekt | Rozhodnutie |
 |---|---|
-| Provider | **OpenAI gpt-4.1-mini** (`OPENAI_KEY` env var) |
+| Provider | **OpenAI** (`OPENAI_KEY` env var) |
+| Modely | `agent_model_id` (tool-calling loop) + `gen_model_id` (finálna odpoveď) — konfigurovateľné v `config/agent.toml` |
 | Agentic retrieval | `BangAgent` — tool-calling loop (max 10 iterácií), nástroje: `search_rules` + `select_chunks` |
-| Konfigurácia agenta | `config/agent.toml` — `model_id`, `max_iterations`, `max_k_per_call`, `max_total_chunks` |
-| System prompty | `config/prompts/agent.md` (agent loop), `config/prompts/gen.md` (finálna odpoveď) |
+| Konfigurácia agenta | `config/agent.toml` — `agent_model_id`, `gen_model_id`, `judge_model_id`, `max_iterations`, `max_k_per_call`, `max_total_chunks`, `temperature`, `seed` |
+| System prompty | `config/prompts/agent.md` (agent loop), `config/prompts/gen.md` (finálna odpoveď; obsahuje hardcoded sekciu "Všeobecné pripomienky" pre cross-cutting pravidlá) |
 | Streaming | Áno (`st.write_stream`) pre finálnu odpoveď; tool-calling loop je non-streaming |
 | Fallback | Pri nedostupnosti API → zobraz iba retrieved chunky (hybrid k=5) |
 | Jazyk odpovede | Vždy slovenčina |
@@ -174,12 +175,12 @@ System prompt:
 | Retrieval eval set | `eval/qa.jsonl` — ručne kurátovaný; retrieval metriky: Recall@1, Recall@3, Recall@5, MRR, Refusal Acc |
 | **Ablation** | dense-only vs sparse-only vs hybrid — `python -m src.eval.run_eval --variant all`, výstup do `eval/results.md` |
 | Generation eval set | `eval/gen_qa.jsonl` — generovaný cez `scripts/generate_eval.py` (OpenAI `gpt-4o-mini`) + ručná kuratúra |
-| Generation eval | Automatická: `src/eval/run_gen_eval.py` + LLM-as-judge (`gpt-4o-mini`); metriky: faithfulness, correctness, cites_sources, in_slovak, Gold@sel; výstup do `eval/runs/<timestamp>_<model>/` (pozri nižšie) |
+| Generation eval | Automatická: `src/eval/run_gen_eval.py` + LLM-as-judge (model z `agent.toml: judge_model_id`); metriky: faithfulness, correctness, cites_sources, in_slovak, Gold@sel; výstup do `eval/runs/<timestamp>_<model>/` (pozri nižšie) |
 | Run tracking | Každý beh vytvára `eval/runs/<timestamp>_<model>/config.toml` + `gen_results.jsonl` + `gen_results.md`; súhrnný index v `eval/runs/_index.toml` |
 | **RunScore** | `metrics.run_score()` — mean `case_score` cez všetky výsledky, normalizovaný [0,1]; zobrazený v CLI aj viewer |
 | Pydantic schémy | `src/schemas.py`: `GenQARow`, `ToolCallLog`, `EvalResult`, `JudgeScores`, `JudgeRefusalScores`, `RunConfig` |
 | Judge prompty | `config/prompts/judge.md` (non-refusal) + `config/prompts/judge_refusal.md` (refusal cases) |
-| Viewer | `scripts/browse_gen_eval.py` — Streamlit viewer; zobrazuje zoznam runov z `eval/runs/`, metriky per run aj per prípad |
+| Viewer | `scripts/browse_gen_eval.py` — Streamlit viewer; zobrazuje zoznam runov z `eval/runs/`, metriky per run aj per prípad; umožňuje manuálnu editáciu judge skóre (faithfulness, correctness, cites_sources, in_slovak) s uložením späť do `gen_results.jsonl` |
 | Tooling | Custom Python v `src/eval/` (no ragas) |
 | Beh | Lokálne počas vývoja, výstup do `eval/runs/` |
 
@@ -255,7 +256,7 @@ BangRag/
 ### Infraštruktúra
 - **GitHub repo** (verejný, portfolio)
 - **HF Space** (Streamlit SDK, free tier 16 GB RAM)
-- **OpenAI API** (`gpt-4.1-mini`, kľúč v HF Space secrets)
+- **OpenAI API** (modely konfigurovateľné v `config/agent.toml`, kľúč v HF Space secrets)
 
 ### Workflow
 1. Vývoj na lokálnom branchi
@@ -313,7 +314,7 @@ BangRag/
 | Slovak NLP | `simplemma` (lemma) + custom stopword list |
 | Embeddings | `sentence-transformers` + `intfloat/multilingual-e5-base` |
 | Vector + FTS | `lancedb` (native hybrid + RRF) |
-| LLM | `openai` SDK, `gpt-4.1-mini` |
+| LLM | `openai` SDK; modely v `config/agent.toml` (`agent_model_id`, `gen_model_id`, `judge_model_id`) |
 | UI | `streamlit` |
 | Tests | `pytest` |
 | Deploy | HF Spaces (Streamlit SDK) cez GitHub Action |
